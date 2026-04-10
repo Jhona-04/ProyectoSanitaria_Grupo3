@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require("../database");
+const sequelize = require("../db/db");
 
 class Cassete extends Model {}
 
