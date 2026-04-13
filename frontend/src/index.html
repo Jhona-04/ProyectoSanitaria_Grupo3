@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitaria | Login</title>
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="log__title">Login</h1>
+        <!-- FORMULARIO -->
+        <form class="form" action="">
+
+            <!-- CORREO -->
+            <article class="form__group">
+                <input class="form__input" type="email" id="useremail" name="useremail" placeholder="Correo Electrónico" required>
+            </article>
+
+            <!-- CONTRASEÑA -->
+            <article class="form__group">
+                <div class="form__input-wrap">
+                    <input class="form__input" type="password" id="password" name="password" placeholder="Contraseña" required>
+                    <span class="form__input-icon" id="toggle-pwd">
+                        <i class="fa-regular fa-eye"></i>
+                    </span>
+                </div>
+                <!-- Barras contraseña-->
+                <div class="form__strength">
+                    <span class="form__strength-bar" id="s1"></span>
+                    <span class="form__strength-bar" id="s2"></span>
+                    <span class="form__strength-bar" id="s3"></span>
+                    <span class="form__strength-bar" id="s4"></span>
+                </div>
+                <p class="form__hint">8-16 caracteres, mayúsculas, minúsculas y símbolos</p>
+            </article>
+
+            <!-- FORGOT PASSWORD -->
+            <a class="form__link" id="forgot-btn">¿Olvidaste tu contraseña?</a>
+
+            <!-- LOGIN BUTTON -->
+            <button class="form__button" type="submit" id="btn-login">Iniciar sesión</button>
+
+            <!-- REGISTER -->
+            <p class="form__text">¿No tienes una cuenta? <a class="form__link" href="#">Regístrate aquí</a></p>
+        </form>
+    </div>
+    <!-- JS -->
+     <script src="./js/"></script>
+</body>
+</html>
