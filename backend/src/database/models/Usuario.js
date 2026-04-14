@@ -96,6 +96,16 @@ Usuario.init(
                 },
             },
         },
+
+        resetToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+
+        resetTokenExpires: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
     },
     {
         sequelize,

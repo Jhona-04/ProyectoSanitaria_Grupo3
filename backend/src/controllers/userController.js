@@ -1,7 +1,9 @@
-const userService = require('../services/userService');
+const userService = require('../services/userServices');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const { sendPasswordResetEmail } = require('../services/mailer');
+const crypto = require('crypto');
 
 // Controlador para registrar un nuevo usuario
 const register = async (req, res) => {
@@ -97,7 +99,68 @@ const login = async (req, res) => {
     }
 };
 
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    if (!email) {
+        return res.status(400).json({
+            error: "Error",
+            errores: ["Email requerido"],
+        });
+    }
+    try {
+        const user = await userService.findUserByEmail(email);
+        if (!user) {
+            return res.status(200).json({ message: "Si el email está registrado, recibirás un correo de restablecimiento." });
+        }
+
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        const resetTokenExpires = Date.now() + 3600000; // 1 hour
+
+        await userService.saveResetToken(email, resetToken, resetTokenExpires);
+        await sendPasswordResetEmail(email, resetToken);
+
+        res.status(200).json({ message: "Si el email está registrado, recibirás un correo de restablecimiento." });
+
+    } catch (error) {
+        res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
+    }
+};
+
+const resetPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password) {
+        return res.status(400).json({
+            error: "Error",
+            errores: ["Nueva contraseña requerida"],
+        });
+    }
+
+    try {
+        const user = await userService.findUserByResetToken(token);
+
+        if (!user || user.resetTokenExpires < Date.now()) {
+            return res.status(400).json({
+                error: "Error",
+                errores: ["El token es inválido o ha expirado"],
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        await userService.updatePassword(user.id_user, hashedPassword);
+        await userService.clearResetToken(user.id_user);
+
+        res.status(200).json({ message: "Contraseña actualizada correctamente." });
+
+    } catch (error) {
+        res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
+    }
+};
+
 module.exports = {
     register,
     login,
+    forgotPassword,
+    resetPassword,
 };
