@@ -108,9 +108,10 @@ body {
 .form__hint {
     font-size: 11px;
     color: #aaa;
+    text-align: right;
 }
 
-/* form__strengths*/
+/* form__strength*/
 .form__strength {
     display: flex;
     gap: 4px;
