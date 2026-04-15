@@ -41,7 +41,7 @@ body {
 
 /* LOG__TITLE */
 .log__title {
-    font-size: 26px;
+    font-size: 32px;
     color: #1a1a1a;
     margin-bottom: 1.75rem;
     text-align: center;
@@ -69,11 +69,11 @@ body {
 /* form__input */
 .form__input {
     width: 100%;
-    height: 44px;
+    height: 48px;
     padding: 0 42px 0 14px;
     border: 1.5px solid #ddd;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     font-family: "sans";
     color: #1a1a1a;
     background: #fafafa;
@@ -95,8 +95,7 @@ body {
     transform: translateY(-50%);
     cursor: pointer;
     color: #aaa;
-    font-size: 15px;
-    user-select: none;
+    font-size: 18px;
     transition: color 0.15s;
 }
 
@@ -106,7 +105,7 @@ body {
 
 /* form__hint */
 .form__hint {
-    font-size: 11px;
+    font-size: 13px;
     color: #aaa;
     text-align: right;
 }
@@ -128,11 +127,13 @@ body {
 
 /* form__link */
 .form__link {
-    font-size: 13px;
+    font-size: 15px;
     color: #534AB7;
     text-decoration: none;
     cursor: pointer;
-    align-self: flex-end;
+    text-align: center;
+    display: block;
+    margin: 1rem 0;
 }
 
 .form__link:hover {
@@ -142,12 +143,12 @@ body {
 /* form__button */
 .form__button {
     width: 100%;
-    height: 44px;
+    height: 48px;
     background: #534AB7;
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     font-family: "sans";
     cursor: pointer;
@@ -173,7 +174,23 @@ body {
 
 /* form__text */
 .form__text {
-    font-size: 13px;
+    font-size: 15px;
     color: #888;
     text-align: center;
+}
+
+/*CLASES RECUPERAR CONTRASEÑA */
+
+.form__text--recovery {
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 16px;
+}
+
+.form__text--back {
+    margin-top: 1rem;
+}
+
+.d-none {
+    display: none;
 }
