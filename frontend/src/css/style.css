@@ -177,3 +177,14 @@ body {
     color: #888;
     text-align: center;
 }
+
+.form__input.invalid {
+    border-color: #ff0000;
+}
+
+.form__error-message {
+    color: #ff0000;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    min-height: 1rem;
+}
