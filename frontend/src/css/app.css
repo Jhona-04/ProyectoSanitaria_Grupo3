@@ -1,0 +1,16 @@
+.container_header {
+    background: #534AB7;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    border: 2px solid #ca1e1e;
+}
+
+.header {
+    width: 100%;
+    background: #534AB7;
+
+}
