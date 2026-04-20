@@ -73,5 +73,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         showError(password2, message);
     });
-     
+
 });
