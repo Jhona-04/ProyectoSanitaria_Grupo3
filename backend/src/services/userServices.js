@@ -1,14 +1,14 @@
 const Usuario  = require("../database/models/Usuario");
 
-const validateUserModel = async (email, password, centro, nombre, apellidos) => {
-  await Usuario.build({ email: email, password: password, centro: centro, nombre: nombre, apellidos: apellidos }).validate();
+const validateUserModel = async (email, password, centro, rol, nombre, apellidos) => {
+  await Usuario.build({ email: email, password: password, centro: centro, rol: rol, nombre: nombre, apellidos: apellidos }).validate();
 };
 
 const findUserByEmail = async (email) => {
   return await Usuario.findOne({ where: { email: email } });
 };
 
-const createUser = async (email, passwordHash, centro, nombre, apellidos, rol) => {
+const createUser = async (email, passwordHash, centro, rol, nombre, apellidos) => {
   return await Usuario.create({
     email: email,
     password: passwordHash,
