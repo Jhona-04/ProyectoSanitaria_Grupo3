@@ -49,6 +49,37 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePwd.innerHTML = type === 'password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
     });
 
+    // Manejar el envío del formulario de recuperación de contraseña
+    forgotForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('forgot-email').value;
+        const message = document.getElementById('forgot-message');
+
+        try {
+            const response = await fetch('http://localhost:3000/sanitaria/users/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                message.textContent = 'Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.';
+                message.style.color = 'green';
+            } else {
+                message.textContent = data.message || 'Error al solicitar el restablecimiento.';
+                message.style.color = 'red';
+            }
+        } catch (error) {
+            message.textContent = 'Error de red. Asegúrate de que el servidor backend está funcionando.';
+            message.style.color = 'red';
+        }
+    });
+});
+
     // Toggle password visibility for register password
     const togglePwdReg = document.getElementById('toggle-pwd-reg');
     const passwordReg = document.getElementById('password-reg');
@@ -66,4 +97,3 @@ document.addEventListener('DOMContentLoaded', () => {
         password2.setAttribute('type', type);
         togglePwd2.innerHTML = type === 'password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
     });
-});

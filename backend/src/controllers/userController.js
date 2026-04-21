@@ -101,6 +101,7 @@ const login = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
+    console.log('1. Solicitud de restablecimiento para:', email); // Registro para depuración
     if (!email) {
         return res.status(400).json({
             error: "Error",
@@ -109,19 +110,26 @@ const forgotPassword = async (req, res) => {
     }
     try {
         const user = await userService.findUserByEmail(email);
+        console.log('2. Usuario encontrado:', user ? user.email : 'No encontrado'); // Registro para depuración
+
         if (!user) {
+            // No revelamos si el usuario existe o no por seguridad
             return res.status(200).json({ message: "Si el email está registrado, recibirás un correo de restablecimiento." });
         }
 
         const resetToken = crypto.randomBytes(20).toString('hex');
+        console.log('3. Token generado:', resetToken); // Registro para depuración
         const resetTokenExpires = Date.now() + 3600000; // 1 hour
 
         await userService.saveResetToken(email, resetToken, resetTokenExpires);
+        console.log('4. Token guardado en la BD.'); // Registro para depuración
         await sendPasswordResetEmail(email, resetToken);
+        console.log('5. Función sendPasswordResetEmail llamada.'); // Registro para depuración
 
         res.status(200).json({ message: "Si el email está registrado, recibirás un correo de restablecimiento." });
 
     } catch (error) {
+        console.error('ERROR en forgotPassword:', error); // Registro de error
         res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
     }
 };

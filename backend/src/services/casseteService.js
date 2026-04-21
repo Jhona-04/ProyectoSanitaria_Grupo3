@@ -1,52 +1,31 @@
-// Simulación de base de datos en memoria
-let cassetes = [
-  { id: 1, nombre: "Cassete 1", marca: "Sony" },
-  { id: 2, nombre: "Cassete 2", marca: "TDK" },
-];
+const Cassete = require("../database/models/Cassete");
 
 const getAllCassetes = async () => {
-  console.log("Service: getAllCassetes");
-  return cassetes;
+  return await Cassete.findAll();
 };
 
 const getCasseteById = async (id) => {
-  console.log("Service: getCasseteById", id);
-  return cassetes.find(c => c.id == id);
+  return await Cassete.findByPk(id);
 };
 
 const createCassete = async (data) => {
-  console.log("Service: createCassete", data);
-
-  const newCassete = {
-    id: cassetes.length + 1,
-    ...data,
-  };
-
-  cassetes.push(newCassete);
-  return newCassete;
+  console.log("Service: createCassete in DB", data);
+  return await Cassete.create(data);
 };
 
-
 const updateCassete = async (id, data) => {
-  console.log("Service: updateCassete", id, data);
-
-  const index = cassetes.findIndex(c => c.id == id);
-
-  if (index === -1) return null;
-
-  cassetes[index] = { ...cassetes[index], ...data };
-  return cassetes[index];
+  const cassete = await Cassete.findByPk(id);
+  if (!cassete) {
+    return null;
+  }
+  return await cassete.update(data);
 };
 
 const deleteCassete = async (id) => {
-  console.log("Service: deleteCassete", id);
-
-  const index = cassetes.findIndex(c => c.id == id);
-
-  if (index === -1) return false;
-
-  cassetes.splice(index, 1);
-  return true;
+  const deleted = await Cassete.destroy({
+    where: { id_cassete: id },
+  });
+  return deleted > 0;
 };
 
 module.exports = {

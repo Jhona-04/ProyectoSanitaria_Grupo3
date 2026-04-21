@@ -1,10 +1,13 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const { swaggerUi, specs } = require('./swagger');
 // // conexión con mysql
 const sequelize = require("./database/db/db");
 // // asociaciones
 require("./database/db/associations");
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
