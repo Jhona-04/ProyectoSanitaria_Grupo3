@@ -1,16 +1,147 @@
-.container_header {
-    background: #534AB7;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 1200px;
-    border: 2px solid #ca1e1e;
+/* HEADER */
+.header {
+    background-color: #534AB7;
+    padding: 0.75rem 1rem;
 }
 
-.header {
-    width: 100%;
-    background: #534AB7;
+/* CONTENEDOR */
+.container_header {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
+/* HAMBURGUESA */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    align-self: flex-start;
+    padding: 4px 0;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+/* NAV MÓVIL */
+.header__nav {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    width: 100%;
+}
+
+/* NAV ACTIVO */
+.header__nav.active {
+    display: flex;
+}
+
+/* ELEMENTOS */
+.header__form, .header__button, .header__date-input {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    color: #534AB7;
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+}
+.header__button:hover, .header__form:focus, .header__date-input:focus {
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.4);
+}
+
+/* FECHAS */
+.header__dates {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* BREAKPOINT 768PX */
+@media (min-width: 768px) {
+
+    .header__dates {
+        flex-direction: row;
+    }
+
+    .header__date-input {
+        flex: 1;
+    }
+}
+
+/* BREAKPOINT 1024PX */
+@media (min-width: 1024px) {
+
+    .hamburger {
+        display: none;
+    }
+
+    .container_header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .header__nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        padding-top: 0;
+        width: auto;
+    }
+
+    .header__form {
+        min-width: 260px;
+        width: auto;
+    }
+
+    .header__button {
+        min-width: 260px;
+        width: auto;
+    }
+
+    .header__dates {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .header__date-input {
+        width: 140px;
+    }
+}
+
+/* BREAKPOINT 1200PX */
+@media (min-width: 1200px) {
+
+    .container_header {
+        gap: 2rem;
+    }
+
+    .header__nav {
+        gap: 2rem;
+    }
+
+    .header__form {
+        min-width: 300px;
+    }
+
+    .header__button {
+        min-width: 300px;
+    }
+
+    .header__date-input {
+        width: 150px;
+    }
 }
