@@ -24,12 +24,10 @@ const sendPasswordResetEmail = async (to, token) => {
     };
 
     try {
-        console.log('6. Intentando enviar correo a:', to); // Registro para depuración
         const info = await transporter.sendMail(mailOptions);
-        console.log('7. Correo enviado con éxito. ID del mensaje:', info.messageId); // Registro para depuración
         console.log('URL de vista previa (Ethereal):', nodemailer.getTestMessageUrl(info)); // Registro para depuración
     } catch (error) {
-        console.error('ERROR al enviar el correo:', error); // Registro de error
+        console.error('ERROR al enviar el correo:', error);
     }
 };
 
