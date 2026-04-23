@@ -86,6 +86,10 @@ Cassete.init(
         },
       },
     },
+    usuarioId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
   {
     sequelize,

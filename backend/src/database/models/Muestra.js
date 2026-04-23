@@ -75,6 +75,10 @@ Muestra.init(
                 },
             },
         },
+        casseteId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     },
     {
         sequelize,

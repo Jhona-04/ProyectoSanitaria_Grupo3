@@ -14,6 +14,10 @@ Imagen.init(
             type : DataTypes.BLOB('long'),
             allowNull: true
         },
+        muestraId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     },
     {
         sequelize,

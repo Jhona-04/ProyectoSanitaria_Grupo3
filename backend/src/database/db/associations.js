@@ -3,14 +3,14 @@ const Muestra = require("../models/Muestra");
 const Cassete = require("../models/Cassete");
 const Imagen = require("../models/Imagen");
 
-// Un usuario tiene muchas muestras
-Usuario.hasMany(Muestra, { foreignKey: "usuarioId" });
-Muestra.belongsTo(Usuario, { foreignKey: "usuarioId" });
+// Un usuario tiene muchos cassetes
+Usuario.hasMany(Cassete, { foreignKey: "usuarioId" });
+Cassete.belongsTo(Usuario, { foreignKey: "usuarioId" });
 
-// Una muestra pertenece a un cassete, y un cassete puede tener muchas muestras
+// Un cassete puede tener muchas muestras
 Cassete.hasMany(Muestra, { foreignKey: "casseteId" });
 Muestra.belongsTo(Cassete, { foreignKey: "casseteId" });
 
-// Una imagen puede pertenecer a un cassete, y un cassete puede tener muchas imagenes
-Cassete.hasMany(Imagen, { foreignKey: "casseteId" });
-Imagen.belongsTo(Cassete, { foreignKey: "casseteId" });
+// Una muestra puede tener muchas imagenes
+Muestra.hasMany(Imagen, { foreignKey: "muestraId" });
+Imagen.belongsTo(Muestra, { foreignKey: "muestraId" });
