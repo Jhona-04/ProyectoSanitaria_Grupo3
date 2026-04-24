@@ -1,8 +1,139 @@
 // Menú Hamburguesa
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('menu');
-
+ 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     menu.classList.toggle('active');
 });
+
+
+// ELEMENTOS
+const tabla = document.getElementById('tablaCassetes');
+const tbody = tabla.querySelector('tbody');
+
+const selectOrgano = document.getElementById('organos');
+const startDate = document.getElementById('start-date');
+const endDate = document.getElementById('end-date');
+
+// ----------------------
+// FORMATEAR FECHA
+// ----------------------
+const formatearFecha = (fechaStr) => {
+    const fecha = new Date(fechaStr);
+    return String(fecha.getDate()).padStart(2, '0') + '-' +
+           String(fecha.getMonth() + 1).padStart(2, '0') + '-' +
+           fecha.getFullYear();
+}
+
+// ----------------------
+// FILTRAR DATOS
+// ----------------------
+const aplicarFiltros = (data) => {
+    let resultado = [...data];
+
+    const organo = selectOrgano.value;
+    const fechaInicio = startDate.value;
+    const fechaFin = endDate.value;
+
+    // FILTRO ÓRGANO
+    if (organo && organo !== '*') {
+        resultado = resultado.filter(item => item.organo === organo);
+    }
+
+    // FILTRO FECHAS
+    if (fechaInicio) {
+        const inicio = new Date(fechaInicio);
+        resultado = resultado.filter(item => new Date(item.fecha) >= inicio);
+    }
+
+    if (fechaFin) {
+        const fin = new Date(fechaFin);
+        resultado = resultado.filter(item => new Date(item.fecha) <= fin);
+    }
+
+    return resultado;
+}
+
+// ----------------------
+// PINTAR TABLA
+// ----------------------
+const renderTabla = (data) => {
+    tbody.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    data.forEach(item => {
+        const tr = document.createElement('tr');
+
+        const tdFecha = document.createElement('td');
+        tdFecha.textContent = formatearFecha(item.fecha);
+
+        const tdDesc = document.createElement('td');
+        // CAMBIAR CUANDO HAYA DATOS DE VERDAD
+        tdDesc.textContent = item.marca;
+
+        const tdOrg = document.createElement('td');
+        // CAMBIAR CUANDO HAYA DATOS DE VERDAD
+        tdOrg.textContent = item.nombre;
+
+        const tdBtn = document.createElement('td');
+        const btn = document.createElement('button');
+
+        const icon = document.createElement('i');
+        icon.className = 'fa-solid fa-file-lines';
+
+        btn.appendChild(icon);
+        tdBtn.appendChild(btn);
+
+        tr.appendChild(tdFecha);
+        tr.appendChild(tdDesc);
+        tr.appendChild(tdOrg);
+        tr.appendChild(tdBtn);
+
+        fragment.appendChild(tr);
+    });
+
+    tbody.appendChild(fragment);
+}
+
+// ----------------------
+// CARGAR DATOS
+// ----------------------
+const cargarCassetes = async () => {
+    try {
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes');
+        let data = await res.json();
+        console.log('Datos obtenidos:', data);
+        data = aplicarFiltros(data);
+
+        renderTabla(data);
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// ----------------------
+// EVENTOS
+// ----------------------
+document.addEventListener('DOMContentLoaded', () => {
+    cargarCassetes(); 
+});
+
+// Cuando cambian filtros
+selectOrgano.addEventListener('change', cargarCassetes);
+startDate.addEventListener('change', cargarCassetes );
+endDate.addEventListener('change', cargarCassetes);
+
+// ----------------------
+// MODAL
+// ----------------------
+const modal = document.getElementById('modal');
+const btnNuevo = document.getElementById('cassette__modal');
+const modalClose = document.getElementById('modal-close');
+const modalOverlay = document.getElementById('modal-overlay');
+
+btnNuevo.addEventListener('click', () => modal.classList.add('active'));
+modalClose.addEventListener('click', () => modal.classList.remove('active'));
+modalOverlay.addEventListener('click', () => modal.classList.remove('active'));

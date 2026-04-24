@@ -7,8 +7,11 @@
     <!-- LINK CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/app.css">
+    <!-- FAVICON -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+    <!-- HEADER -->
     <header class="header">
         <div class="container_header">
 
@@ -81,9 +84,7 @@
                 </select>
 
                 <!-- QR -->
-                <button class="header__button" id="qr-button">
-                    Escanear QR
-                </button>
+                <button class="header__button" id="qr-button">Escanear QR</button>
 
                 <!-- FECHAS -->
                 <section class="header__dates">
@@ -97,6 +98,153 @@
             </nav>
         </div>
     </header>
+
+    <main class="main">
+        <!-- CASSETES -->
+        <section class="cassettes" id="cassettes">
+            <article class="cassettes__header">
+                <h1 class="cassettes__title">Cassettes</h1>
+                <!-- MODALES -->
+                <div class="casettes__article">
+                    <i class="fa-solid fa-file-circle-plus cassete__icon" id="cassette__modal"></i>
+                    <i class="fa-solid fa-copy cassete__icon"></i>
+                </div>
+            </article>
+            <!-- TABLA -->
+            <article>
+                <table class="cassettes__table" id="tablaCassetes">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Órgano</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </article>
+        </section>
+
+        <!-- DETALLES -->
+        <section class="details" id="details">
+            <article class="details__header">
+                <h1 class="details__title">Detalles</h1>
+                <div class="details__article">
+                    <i class="fa-solid fa-qrcode cassete__icon"></i>
+                    <i class="fa-solid fa-trash cassete__icon"></i>
+                    <i class="fa-solid fa-file-pen cassete__icon"></i>
+                </div>
+            </article>
+        </section>
+
+        <!-- MUESTRAS -->
+        <section class="samples" id="samples"></section>
+    </main>
+
+    <!-- MODAL NUEVO CASSETTE -->
+    <section class="modal" id="modal">
+        <div class="modal__overlay" id="modal-overlay"></div>
+        <article class="modal__card">
+
+            <div class="modal__header">
+                <h2 class="modal__title">Nuevo Cassette</h2>
+                <button class="modal__close" id="modal-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- DESCRIPCIÓN CORTA -->
+            <div class="modal__group">
+                <label class="modal__label" for="modal-desc">Descripción Corta</label>
+                <input class="modal__input" type="text" id="modal-desc">
+            </div>
+
+            <!-- FECHA + ÓRGANO -->
+            <div class="modal__row">
+                <!-- FECHA -->
+                <div class="modal__group">
+                    <label class="modal__label" for="modal-fecha">Fecha</label>
+                    <input class="modal__input" type="date" id="modal-fecha">
+                </div>
+                <!-- ÓRGANOS -->
+                <div class="modal__group">
+                    <label class="modal__label" for="modal-organo">Órgano</label>
+                    <select class="modal__input" id="modal-organo">
+                        <option disabled selected value="">Seleccionar Órgano</option>
+                        <optgroup label="Sistema Nervioso">
+                            <option value="encefalo">Encéfalo</option>
+                            <option value="medula">Médula Espinal</option>
+                            <option value="nervio">Nervio</option>
+                            <option value="ganglio-nervios">Ganglio Nervios</option>
+                        </optgroup>
+                        <optgroup label="Tegumento">
+                            <option value="piel">Piel</option>
+                            <option value="una">Uña</option>
+                            <option value="pelo">Pelo</option>
+                        </optgroup>
+                        <optgroup label="Cardiovascular">
+                            <option value="corazon">Corazón</option>
+                            <option value="venas">Venas</option>
+                            <option value="arteria">Arteria</option>
+                        </optgroup>
+                        <optgroup label="Linfático">
+                            <option value="ganglio-linfatico">Ganglio Linfático</option>
+                            <option value="timo">Timo</option>
+                            <option value="bazo">Bazo</option>
+                        </optgroup>
+                        <optgroup label="Sistema Digestivo">
+                            <option value="lengua">Lengua</option>
+                            <option value="esofago">Esófago</option>
+                            <option value="estomago">Estómago</option>
+                            <option value="intestino-delgado">Intestino Delgado</option>
+                            <option value="intestino-grueso">Intestino Grueso</option>
+                            <option value="diente">Diente</option>
+                            <option value="glandula-salivar">Glándula Salivar</option>
+                            <option value="pancrea">Páncrea</option>
+                            <option value="higado">Hígado</option>
+                        </optgroup>
+                        <optgroup label="Aparato Excretor">
+                            <option value="rinon">Riñón</option>
+                            <option value="vejiga">Vejiga</option>
+                        </optgroup>
+                        <optgroup label="Respiratorio">
+                            <option value="traquea">Tránquea</option>
+                            <option value="bronquios">Bronquios</option>
+                            <option value="tejido-respiratorio">Tejido Respiratorio</option>
+                        </optgroup>
+                        <optgroup label="Endocrino">
+                            <option value="tiroides">Tiroides</option>
+                            <option value="parotidas">Parótidas</option>
+                            <option value="suprarrenales">Suprarrenales</option>
+                            <option value="ovario">Ovario</option>
+                            <option value="testiculo">Testículo</option>
+                        </optgroup>
+                        <optgroup label="Locomotor">
+                            <option value="hueso">Hueso</option>
+                            <option value="musculo">Musculo Esquelético</option>
+                        </optgroup>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- CARACTERÍSTICAS -->
+            <div class="modal__group">
+                <label class="modal__label" for="modal-caract">Características</label>
+                <textarea class="modal__textarea" id="modal-caract"></textarea>
+            </div>
+
+            <!-- OBSERVACIONES -->
+            <div class="modal__group">
+                <label class="modal__label" for="modal-obs">Observaciones</label>
+                <textarea class="modal__textarea" id="modal-obs"></textarea>
+            </div>
+
+            <button class="modal__btn" id="modal-submit">Crear Cassette</button>
+        </article>
+    </section>
+
     <!-- JS -->
     <script src="../js/app.js"></script>
 </body>
