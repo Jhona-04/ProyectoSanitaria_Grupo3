@@ -62,15 +62,15 @@ Cassete.init(
 
     qr_cassete: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: {
         msg: "El QR ya está registrado.",
       },
-      validate: {
+      /*validate: {
         notEmpty: {
           msg: "El QR no puede estar vacío.",
         },
-      },
+      },*/
     },
 
     organo: {
@@ -88,7 +88,7 @@ Cassete.init(
     },
     usuarioId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     }
   },
   {
