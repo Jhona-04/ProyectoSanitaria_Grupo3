@@ -144,7 +144,7 @@
     <section class="modal" id="modal">
         <div class="modal__overlay" id="modal-overlay"></div>
         <article class="modal__card">
-            <form action="" id="crear_cassete">
+            <form action="" id="crear_cassete" novalidate>
                 <div class="modal__header">
                     <h2 class="modal__title">Nuevo Cassette</h2>
                     <button class="modal__close" id="modal-close">
@@ -155,7 +155,8 @@
                 <!-- DESCRIPCIÓN CORTA -->
                 <div class="modal__group">
                     <label class="modal__label" for="modal-desc">Descripción Corta</label>
-                    <input class="modal__input" type="text" id="modal-desc" name="descripcion">
+                    <input class="modal__input" type="text" id="modal-desc" name="descripcion" required minlength="2">
+                    <span class="form__error-message"></span>
                 </div>
 
                 <!-- FECHA + ÓRGANO -->
@@ -163,12 +164,13 @@
                     <!-- FECHA -->
                     <div class="modal__group">
                         <label class="modal__label" for="modal-fecha">Fecha</label>
-                        <input class="modal__input" type="date" id="modal-fecha" name="fecha">
+                        <input class="modal__input" type="date" id="modal-fecha" name="fecha" required>
+                        <span class="form__error-message"></span>
                     </div>
                     <!-- ÓRGANOS -->
                     <div class="modal__group">
                         <label class="modal__label" for="modal-organo">Órgano</label>
-                        <select class="modal__input" id="modal-organo" name="organo">
+                        <select class="modal__input" id="modal-organo" name="organo" required>
                             <option disabled selected value="">Seleccionar Órgano</option>
                             <optgroup label="Sistema Nervioso">
                                 <option value="encefalo">Encéfalo</option>
@@ -224,6 +226,7 @@
                             </optgroup>
                             <option value="otros">Otros</option>
                         </select>
+                        <span class="form__error-message"></span>
                     </div>
                 </div>
 

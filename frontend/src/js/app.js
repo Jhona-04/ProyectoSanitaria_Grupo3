@@ -134,6 +134,54 @@ const crearCassete = async (casseteData) => {
     }
 }
 // ----------------------
+// VALIDACIÓN FORMULARIO NUEVO CASSETTE
+// ----------------------
+const modalForm = document.getElementById('crear_cassete');
+const modalDesc = document.getElementById('modal-desc');
+const modalFecha = document.getElementById('modal-fecha');
+const modalOrgano = document.getElementById('modal-organo');
+
+const showError = (input, message) => {
+    const errorElement = input.parentElement.querySelector('.form__error-message');
+    if (errorElement) {
+        errorElement.textContent = message;
+        input.classList.toggle('invalid', message !== '');
+    }
+};
+
+if(modalDesc) {
+    modalDesc.addEventListener('input', () => {
+        if (modalDesc.validity.tooShort) {
+            showError(modalDesc, 'La descripción debe tener al menos 2 caracteres.');
+        } else if (modalDesc.validity.valueMissing) {
+            showError(modalDesc, 'Este campo es obligatorio.');
+        } else {
+            showError(modalDesc, '');
+        }
+    });
+}
+
+if(modalFecha) {
+    modalFecha.addEventListener('input', () => {
+        if (modalFecha.validity.valueMissing) {
+            showError(modalFecha, 'Debes seleccionar una fecha.');
+        } else {
+            showError(modalFecha, '');
+        }
+    });
+}
+
+if(modalOrgano) {
+    modalOrgano.addEventListener('input', () => {
+        if (modalOrgano.validity.valueMissing) {
+            showError(modalOrgano, 'Debes seleccionar un órgano.');
+        } else {
+            showError(modalOrgano, '');
+        }
+    });
+}
+
+// ----------------------
 // EVENTOS
 // ----------------------
 document.addEventListener('DOMContentLoaded', () => {
@@ -158,6 +206,21 @@ modalClose.addEventListener('click', () => modal.classList.remove('active'));
 modalOverlay.addEventListener('click', () => modal.classList.remove('active'));
 crear_cassete.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // Validar antes de enviar
+    if (!modalForm.checkValidity()) {
+        // Forzar la visualización de errores si el usuario intenta enviar un form inválido
+        if (modalDesc.validity.valueMissing || modalDesc.validity.tooShort) {
+            showError(modalDesc, 'La descripción debe tener al menos 2 caracteres.');
+        }
+        if (modalFecha.validity.valueMissing) {
+            showError(modalFecha, 'Debes seleccionar una fecha.');
+        }
+        if (modalOrgano.validity.valueMissing) {
+            showError(modalOrgano, 'Debes seleccionar un órgano.');
+        }
+        return; // Detener si el formulario no es válido
+    }
 
     console.log('Formulario enviado');
 
