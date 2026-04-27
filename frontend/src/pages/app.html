@@ -30,27 +30,32 @@
                 <select class="header__form" id="organos" aria-label="Seleccionar un órgano">
                     <option disabled selected value="">Seleccionar un Órgano</option>
                     <option value="*">Todos</option>
+                    <!-- SISTEMA NERVIOSO -->
                     <optgroup label="Sistema Nervioso">
                         <option value="encefalo">Encéfalo</option>
                         <option value="medula">Médula Espinal</option>
                         <option value="nervio">Nervio</option>
                         <option value="ganglio-nervios">Ganglio Nervios</option>
                     </optgroup>
+                    <!-- TEGUMENTO -->
                     <optgroup label="Tegumento">
                         <option value="piel">Piel</option>
                         <option value="una">Uña</option>
                         <option value="pelo">Pelo</option>
                     </optgroup>
+                    <!-- CARDIOVASCULAR -->
                     <optgroup label="Cardiovascular">
                         <option value="corazon">Corazón</option>
                         <option value="venas">Venas</option>
                         <option value="arteria">Arteria</option>
                     </optgroup>
+                    <!-- LINFÁTICO -->
                     <optgroup label="Linfático">
                         <option value="ganglio-linfatico">Ganglio Linfático</option>
                         <option value="timo">Timo</option>
                         <option value="bazo">Bazo</option>
                     </optgroup>
+                    <!-- SISTEMA DIGESTIVO -->
                     <optgroup label="Sistema Digestivo">
                         <option value="lengua">Lengua</option>
                         <option value="esofago">Esófago</option>
@@ -62,15 +67,18 @@
                         <option value="pancrea">Páncrea</option>
                         <option value="higado">Hígado</option>
                     </optgroup>
+                    <!-- APARATO EXCRETOR -->
                     <optgroup label="Aparato Excretor">
                         <option value="rinon">Riñón</option>
                         <option value="vejiga">Vejiga</option>
                     </optgroup>
+                    <!-- RESPIRATORIO -->
                     <optgroup label="Respiratorio">
                         <option value="traquea">Tránquea</option>
                         <option value="bronquios">Bronquios</option>
                         <option value="tejido-respiratorio">Tejido Respiratorio</option>
                     </optgroup>
+                    <!-- ENDOCRINO -->
                     <optgroup label="Endocrino">
                         <option value="tiroides">Tiroides</option>
                         <option value="parotidas">Parótidas</option>
@@ -78,6 +86,7 @@
                         <option value="ovario">Ovario</option>
                         <option value="testiculo">Testículo</option>
                     </optgroup>
+                    <!-- LOCOMOTOR -->
                     <optgroup label="Locomotor">
                         <option value="hueso">Hueso</option>
                         <option value="musculo">Musculo Esquelético</option>
@@ -97,18 +106,17 @@
         </div>
     </header>
 
+    <!-- MAIN -->
     <main class="main">
-        <!-- CASSETES -->
+        <!-- CASSTTES -->
         <section class="cassettes" id="cassettes">
             <article class="cassettes__header">
                 <h1 class="cassettes__title">Cassettes</h1>
-                <!-- MODALES -->
                 <div class="casettes__article">
                     <i class="fa-solid fa-file-circle-plus cassete__icon" id="cassette__modal"></i>
                     <i class="fa-solid fa-copy cassete__icon"></i>
                 </div>
             </article>
-            <!-- TABLA -->
             <article>
                 <table class="cassettes__table" id="tablaCassetes">
                     <thead>
@@ -124,7 +132,7 @@
             </article>
         </section>
 
-        <!-- DETALLES -->
+        <!-- DETAILS -->
         <section class="details" id="details">
             <article class="details__header">
                 <h1 class="details__title">Detalles</h1>
@@ -137,7 +145,27 @@
         </section>
 
         <!-- MUESTRAS -->
-        <section class="samples" id="samples"></section>
+        <section class="muestras" id="muestras">
+            <article class="muestras__header">
+                <h1 class="muestras__title">Muestras</h1>
+                <div class="casettes__article">
+                    <i class="fa-solid fa-file-circle-plus cassete__icon" id="muestra__modal"></i>
+                </div>
+            </article>
+            <article>
+                <table class="cassettes__table" id="tablaMuestras">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Órgano</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </article>
+        </section>
     </main>
 
     <!-- MODAL NUEVO CASSETTE -->
