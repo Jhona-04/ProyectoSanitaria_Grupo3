@@ -119,7 +119,7 @@ const forgotPassword = async (req, res) => {
 
         const resetToken = crypto.randomBytes(20).toString('hex');
         console.log('3. Token generado:', resetToken); // Registro para depuración
-        const resetTokenExpires = Date.now() + 3600000; // 1 hour
+        const resetTokenExpires = Date.now() + 3 * 60 * 60 * 1000; // 3 horas
 
         await userService.saveResetToken(email, resetToken, resetTokenExpires);
         console.log('4. Token guardado en la BD.'); // Registro para depuración

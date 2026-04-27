@@ -7,7 +7,16 @@ const sequelize = require("./database/db/db");
 // // asociaciones
 require("./database/db/associations");
 
-app.use(cors());
+// Configuración de CORS más específica
+const corsOptions = {
+  origin: 'http://127.0.0.1:5500', // Origen de tu frontend
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Permite cookies
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
