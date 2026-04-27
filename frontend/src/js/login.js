@@ -1,5 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
+    const loginFormEl = loginForm.querySelector('form');
+    const loginErrorMsg = document.createElement('p');
+    loginErrorMsg.className = 'form__error-message';
+    loginErrorMsg.style.display = 'none';
+    loginFormEl.appendChild(loginErrorMsg);
+        // Manejar el envío del formulario de login
+        loginFormEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginErrorMsg.style.display = 'none';
+            const email = document.getElementById('useremail').value;
+            const password = document.getElementById('password').value;
+            try {
+                const response = await fetch('http://localhost:3000/sanitaria/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    // Guardar el JWT como cookie (expira en 2h por defecto, puedes ajustar)
+                    if (data.token) {
+                        document.cookie = `jwt=${data.token}; path=/; max-age=7200`;
+                    }
+                    window.location.href = './pages/app.html';
+                } else {
+                    loginErrorMsg.textContent = data.errores ? data.errores.join(', ') : 'Error al iniciar sesión.';
+                    loginErrorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                loginErrorMsg.textContent = 'Error de red. Asegúrate de que el servidor backend está funcionando.';
+                loginErrorMsg.style.display = 'block';
+            }
+        });
     const registerForm = document.getElementById('register-form');
     const forgotForm = document.getElementById('forgot-form');
 

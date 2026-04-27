@@ -54,7 +54,7 @@ const login = async (req, res) => {
         });
     }
     try {
-        await userService.validateUserModel(email, password);
+        await userService.validateLoginModel(email, password);
         const user = await userService.findUserByEmail(email);
 
         if (!user) {
@@ -63,8 +63,16 @@ const login = async (req, res) => {
                 errores: ["El usuario o la contraseña son incorrectos"],
             });
         }
+
         // Comprobamos contraseña
-        const isValid = await bcrypt.compare(password, user.password_user);
+        // El campo correcto en el modelo es 'password'
+        if (!user.password) {
+            return res.status(401).json({
+                error: "Error de autenticación",
+                errores: ["El usuario o la contraseña son incorrectos"],
+            });
+        }
+        const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) {
             return res.status(401).json({
                 error: "Error de autenticación",
@@ -72,6 +80,13 @@ const login = async (req, res) => {
             });
         }
 
+
+        // JWT_DURATION puede ser un número (horas) o un string ('1h', '2d', etc.)
+        let expiresInValue = process.env.JWT_DURATION;
+        // Si es un número, lo convertimos a string con 'h'
+        if (/^\d+$/.test(expiresInValue)) {
+            expiresInValue = expiresInValue + 'h';
+        }
         const token = jwt.sign(
             {
                 userId: user.idUsuario,
@@ -79,7 +94,7 @@ const login = async (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: process.env.JWT_DURATION + 'h' 
+                expiresIn: expiresInValue
             }
         );
 
