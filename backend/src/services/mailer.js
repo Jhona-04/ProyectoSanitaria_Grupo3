@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 const sendPasswordResetEmail = async (to, token) => {
     const resetUrl = `http://localhost:3000/reset-password?token=${token}`;
     const mailOptions = {
-        from: `"Sanitaria" <${process.env.EMAIL_USER}>`,
+        from: `"Administrador" <${process.env.EMAIL_USER}>`,
         to: to,
         subject: 'Restablecimiento de contraseña',
         html: `
@@ -25,9 +25,9 @@ const sendPasswordResetEmail = async (to, token) => {
 
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log('URL de vista previa (Ethereal):', nodemailer.getTestMessageUrl(info)); // Registro para depuración
+        console.log('Correo enviado con éxito a través de Gmail. Respuesta del servidor:', info.response);
     } catch (error) {
-        console.error('ERROR al enviar el correo:', error);
+        console.log("error: "+ error)
     }
 };
 
