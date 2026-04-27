@@ -43,7 +43,7 @@ router.get("/:id", authjwt,casseteController.getCasseteById);
  *       201:
  *         description: Creado
  */
-router.post("/", authjwt, casseteController.createCassete);
+router.post("/",  casseteController.createCassete);
 
 /**
  * @swagger

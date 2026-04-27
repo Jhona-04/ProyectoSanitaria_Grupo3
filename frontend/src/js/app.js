@@ -1,7 +1,8 @@
 // Menú Hamburguesa
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('menu');
- 
+const crear_cassete = document.getElementById('crear_cassete');
+
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     menu.classList.toggle('active');
@@ -22,8 +23,8 @@ const endDate = document.getElementById('end-date');
 const formatearFecha = (fechaStr) => {
     const fecha = new Date(fechaStr);
     return String(fecha.getDate()).padStart(2, '0') + '-' +
-           String(fecha.getMonth() + 1).padStart(2, '0') + '-' +
-           fecha.getFullYear();
+        String(fecha.getMonth() + 1).padStart(2, '0') + '-' +
+        fecha.getFullYear();
 }
 
 // ----------------------
@@ -70,12 +71,10 @@ const renderTabla = (data) => {
         tdFecha.textContent = formatearFecha(item.fecha);
 
         const tdDesc = document.createElement('td');
-        // CAMBIAR CUANDO HAYA DATOS DE VERDAD
-        tdDesc.textContent = item.marca;
+        tdDesc.textContent = item.descripcion;
 
         const tdOrg = document.createElement('td');
-        // CAMBIAR CUANDO HAYA DATOS DE VERDAD
-        tdOrg.textContent = item.nombre;
+        tdOrg.textContent = item.organo;
 
         const tdBtn = document.createElement('td');
         const btn = document.createElement('button');
@@ -114,16 +113,36 @@ const cargarCassetes = async () => {
     }
 }
 
+const crearCassete = async (casseteData) => {
+    try {
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(casseteData)
+        });
+
+        if (res.ok) {
+            console.log('Cassete creado con éxito');
+            cargarCassetes();
+        } else {
+            console.error('Error al crear cassete');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 // ----------------------
 // EVENTOS
 // ----------------------
 document.addEventListener('DOMContentLoaded', () => {
-    cargarCassetes(); 
+    cargarCassetes();
 });
 
 // Cuando cambian filtros
 selectOrgano.addEventListener('change', cargarCassetes);
-startDate.addEventListener('change', cargarCassetes );
+startDate.addEventListener('change', cargarCassetes);
 endDate.addEventListener('change', cargarCassetes);
 
 // ----------------------
@@ -137,3 +156,25 @@ const modalOverlay = document.getElementById('modal-overlay');
 btnNuevo.addEventListener('click', () => modal.classList.add('active'));
 modalClose.addEventListener('click', () => modal.classList.remove('active'));
 modalOverlay.addEventListener('click', () => modal.classList.remove('active'));
+crear_cassete.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    console.log('Formulario enviado');
+
+    // Usamos 'e.target' que es el formulario actual
+    const formData = new FormData(e.target);
+    const casseteData = Object.fromEntries(formData.entries());
+
+    // Ahora sí verás los datos porque añadimos los 'name' en el HTML
+    console.log('Datos a enviar:', casseteData);
+
+    crearCassete(casseteData);
+
+    // Limpiar usando la variable correcta
+    e.target.reset();
+
+    // Cerrar modal (asegúrate de que la variable 'modal' exista arriba)
+    if (document.getElementById('modal')) {
+        document.getElementById('modal').classList.remove('active');
+    }
+});
