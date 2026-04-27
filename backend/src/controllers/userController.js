@@ -74,7 +74,7 @@ const login = async (req, res) => {
 
         const token = jwt.sign(
             {
-                userId: user.id_user,
+                userId: user.idUsuario,
                 email: user.email
             },
             process.env.JWT_SECRET,
@@ -138,7 +138,13 @@ const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
 
+    console.log('--- INICIO RESET PASSWORD ---');
+    console.log('1. Token recibido:', token);
+    console.log('2. Contraseña recibida (longitud):', password ? password.length : 'No recibida');
+
+
     if (!password) {
+        console.log('Error: No se proporcionó contraseña.');
         return res.status(400).json({
             error: "Error",
             errores: ["Nueva contraseña requerida"],
@@ -146,22 +152,47 @@ const resetPassword = async (req, res) => {
     }
 
     try {
+        console.log('3. Buscando usuario por token...');
         const user = await userService.findUserByResetToken(token);
 
-        if (!user || user.resetTokenExpires < Date.now()) {
+        if (!user) {
+            console.log('Error: Usuario no encontrado con ese token o el token ya fue usado.');
+            return res.status(400).json({
+                error: "Error",
+                errores: ["El token es inválido o ha expirado"],
+            });
+        }
+        
+        console.log('4. Usuario encontrado:', user.email);
+        console.log('5. Verificando expiración del token...');
+        console.log('   - Hora actual:', new Date(Date.now()));
+        console.log('   - Hora de expiración:', new Date(user.resetPasswordExpires));
+
+
+        if (user.resetPasswordExpires < Date.now()) {
+            console.log('Error: El token ha expirado.');
             return res.status(400).json({
                 error: "Error",
                 errores: ["El token es inválido o ha expirado"],
             });
         }
 
+        console.log('6. Token válido. Hasheando nueva contraseña...');
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        await userService.updatePassword(user.id_user, hashedPassword);
-        await userService.clearResetToken(user.id_user);
+        
+        console.log('7. Actualizando contraseña en la BD...');
+        await userService.updatePassword(user.idUsuario, hashedPassword);
+        
+        console.log('8. Limpiando token de la BD...');
+        await userService.clearResetToken(user.idUsuario);
 
+        console.log('9. Proceso completado. Contraseña actualizada.');
+        console.log('--- FIN RESET PASSWORD ---');
         res.status(200).json({ message: "Contraseña actualizada correctamente." });
 
     } catch (error) {
+        console.error('!!! ERROR CATASTRÓFICO en resetPassword:', error);
+        console.log('--- FIN RESET PASSWORD CON ERROR ---');
         res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
     }
 };

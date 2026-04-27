@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const newPasswordInput = document.getElementById('new-password');
     const confirmPasswordInput = document.getElementById('confirm-password');
     const btnReset = document.getElementById('btn-reset-submit');
+
     const generalErrorMessage = document.getElementById('general-error-message');
+    const generalSuccessMessage = document.getElementById('general-success-message');
 
     const showError = (message) => {
         generalErrorMessage.textContent = message;
@@ -13,6 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideError = () => {
         generalErrorMessage.textContent = '';
         generalErrorMessage.style.display = 'none';
+    };
+
+    const showSuccess = (message) => {
+        generalSuccessMessage.textContent = message;
+        generalSuccessMessage.style.display = 'block';
+    };
+
+    const hideSuccess = () => {
+        generalSuccessMessage.textContent = '';
+        generalSuccessMessage.style.display = 'none';
     };
 
     const getQueryParam = (param) => {
@@ -28,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+
         hideError();
+        hideSuccess();
 
         const newPassword = newPasswordInput.value;
         const confirmPassword = confirmPasswordInput.value;
@@ -44,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/users/reset-password/${token}`, {
+            const response = await fetch(`http://localhost:3000/sanitaria/users/reset-password/${token}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,8 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (response.ok) {
-                alert(result.message || 'Contraseña actualizada con éxito.'); // Mantengo un alert para el éxito, es menos intrusivo.
-                window.location.href = '../index.html'; // Redirigir al login
+                showSuccess(result.message || 'Contraseña actualizada con éxito.');
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 2000);
             } else {
                 showError(result.errores ? result.errores.join(', ') : 'Error al restablecer la contraseña.');
             }

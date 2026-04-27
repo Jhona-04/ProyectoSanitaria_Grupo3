@@ -32,17 +32,17 @@ const findUserByResetToken = async (token) => {
 
 const updatePassword = async (userId, password) => {
     return await Usuario.update(
-        { password: password },
-        { where: { id_user: userId } }
+      { password: password },
+      { where: { idUsuario: userId } }
     );
 };
 
-const clearResetToken = async (userId) => {
+  const clearResetToken = async (userId) => {
     return await Usuario.update(
-        { resetToken: null, resetTokenExpires: null },
-        { where: { id_user: userId } }
+      { resetToken: null, resetTokenExpires: null },
+      { where: { idUsuario: userId } }
     );
-};
+  };
 
 module.exports = {
   validateUserModel,
