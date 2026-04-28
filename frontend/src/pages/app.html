@@ -138,7 +138,7 @@
                 <h1 class="details__title">Detalle Cassette</h1>
                 <div class="details__article">
                     <i class="fa-solid fa-qrcode cassete__icon"></i>
-                    <i class="fa-solid fa-trash cassete__icon"></i>
+                    <i class="fa-solid fa-trash cassete__icon" id="btn-delete-cassette"></i>
                     <i class="fa-solid fa-file-pen cassete__icon"></i>
                 </div>
             </article>
@@ -309,6 +309,25 @@
 
                 <button class="modal__btn" type="submit" id="modal-submit">Crear Cassette</button>
             </form>
+        </article>
+    </section>
+
+    <!-- MODAL ELIMINAR CASSETTE -->
+    <section class="modal" id="modal-delete">
+        <div class="modal__overlay" id="modal-delete-overlay"></div>
+        <article class="modal__card">
+            <div class="modal__header">
+                <button class="modal__close" id="modal-delete-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal__message">
+                <p class="modal__text">¿Desea Eliminar el Cassette?</p>
+                <p class="modal__text">Al eliminar el cassete se eliminarán también todas sus muestras.</p>
+            </div>
+
+            <button class="modal__btn" id="modal-delete-submit">Eliminar</button>
         </article>
     </section>
 

@@ -421,6 +421,20 @@
     background-color: #5a8ab0;
 }
 
+/* MODAL - ELIMINAR CASSETTE */
+.modal__message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal__text {
+    font-size: 1rem;
+    color: #3a5a78;
+    margin-bottom: 1.25rem;
+}
+
+/*** BREAKPOINTS ***/
+
 /* BREAKPOINT 768PX */
 @media (min-width: 768px) {
 

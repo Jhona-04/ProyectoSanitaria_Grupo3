@@ -194,15 +194,18 @@ startDate.addEventListener('change', cargarCassetes);
 endDate.addEventListener('change', cargarCassetes);
 
 // ----------------------
-// MODAL
+// MODAL CREAR CASSETTE
 // ----------------------
 const modal = document.getElementById('modal');
 const btnNuevo = document.getElementById('cassette__modal');
 const modalClose = document.getElementById('modal-close');
 const modalOverlay = document.getElementById('modal-overlay');
 
+// Abrir modal
 btnNuevo.addEventListener('click', () => modal.classList.add('active'));
+// Cerrar modal al hacer click
 modalClose.addEventListener('click', () => modal.classList.remove('active'));
+// Cerrar modal al hacer click fuera de la tarjeta
 modalOverlay.addEventListener('click', () => modal.classList.remove('active'));
 
 crear_cassete.addEventListener('submit', (e) => {
@@ -241,4 +244,27 @@ crear_cassete.addEventListener('submit', (e) => {
     if (document.getElementById('modal')) {
         document.getElementById('modal').classList.remove('active');
     }
+});
+
+// ----------------------
+// MODAL BORRAR CASSETTE
+// ----------------------
+const modalDelete = document.getElementById('modal-delete');
+const btnDeleteCassette = document.getElementById('btn-delete-cassette');
+const modalDeleteClose = document.getElementById('modal-delete-close');
+const modalDeleteOverlay = document.getElementById('modal-delete-overlay');
+
+// Abrir modal
+btnDeleteCassette.addEventListener('click', () => {
+    modalDelete.classList.add('active');
+});
+
+// Cerrar modal al hacer click
+modalDeleteClose.addEventListener('click', () => {
+    modalDelete.classList.remove('active');
+});
+
+// Cerrar modal al hacer click fuera de la tarjeta
+modalDeleteOverlay.addEventListener('click', () => {
+    modalDelete.classList.remove('active');
 });
