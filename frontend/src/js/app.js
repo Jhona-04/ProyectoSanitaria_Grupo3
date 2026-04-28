@@ -2,6 +2,12 @@
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('menu');
 const crear_cassete = document.getElementById('crear_cassete');
+const detailDesc = document.getElementById('detail-desc');
+const detailOrgano = document.getElementById('detail-organo');
+const detailFecha = document.getElementById('detail-fecha');
+const detailCaracteristicas = document.getElementById('detail-caracteristicas');
+const detailObservaciones = document.getElementById('detail-observaciones');
+
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
@@ -78,6 +84,7 @@ const renderTabla = (data) => {
 
         const tdBtn = document.createElement('td');
         const btn = document.createElement('button');
+        btn.dataset.id = item.id;
 
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-file-lines';
@@ -100,8 +107,17 @@ const renderTabla = (data) => {
 // CARGAR DATOS
 // ----------------------
 const cargarCassetes = async () => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+    console.log(token);
     try {
-        const res = await fetch('http://localhost:3000/sanitaria/cassetes');
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes',
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
         let data = await res.json();
         console.log('Datos obtenidos:', data);
         data = aplicarFiltros(data);
@@ -113,12 +129,38 @@ const cargarCassetes = async () => {
     }
 }
 
+const cargarCassetesEnPanel = async (id) => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+    try {
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes/' + id,
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let data = await res.json();
+        detailDesc.textContent = data.descripcion;
+        detailOrgano.textContent = data.organo;
+        detailFecha.textContent = formatearFecha(data.fecha);
+        detailCaracteristicas.textContent = data.caracteristicas;
+        detailObservaciones.textContent = data.observaciones;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 const crearCassete = async (casseteData) => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
     try {
         const res = await fetch('http://localhost:3000/sanitaria/cassetes', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(casseteData)
         });
@@ -291,3 +333,4 @@ modalEditClose.addEventListener('click', () => {
 modalEditOverlay.addEventListener('click', () => {
     modalEdit.classList.remove('active');
 });
+
