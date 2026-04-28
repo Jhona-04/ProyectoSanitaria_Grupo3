@@ -204,6 +204,7 @@ const modalOverlay = document.getElementById('modal-overlay');
 btnNuevo.addEventListener('click', () => modal.classList.add('active'));
 modalClose.addEventListener('click', () => modal.classList.remove('active'));
 modalOverlay.addEventListener('click', () => modal.classList.remove('active'));
+
 crear_cassete.addEventListener('submit', (e) => {
     e.preventDefault();
 

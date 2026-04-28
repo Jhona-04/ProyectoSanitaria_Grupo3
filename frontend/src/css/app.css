@@ -206,6 +206,55 @@
     gap: 0.6rem;
     align-items: center;
 }
+/* CUERPO DETALLES */
+.details__body {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.details__section {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.details__section--divider {
+    border-bottom: 1px solid #e8f0f8;
+}
+
+/* FILAS Y CAMPOS */
+.details__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.details__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.details__field--inline {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+/* TEXTOS */
+.details__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5a8ab0;
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+}
+
+.details__value {
+    font-size: 13px;
+    color: #7BAFD4; 
+    text-transform: uppercase;
+}
 
 /* MUESTRAS */
 .muestras {
