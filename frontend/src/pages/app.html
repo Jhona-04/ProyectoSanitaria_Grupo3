@@ -139,7 +139,7 @@
                 <div class="details__article">
                     <i class="fa-solid fa-qrcode cassete__icon"></i>
                     <i class="fa-solid fa-trash cassete__icon" id="btn-delete-cassette"></i>
-                    <i class="fa-solid fa-file-pen cassete__icon"></i>
+                    <i class="fa-solid fa-file-pen cassete__icon" id="btn-edit-cassette"></i>
                 </div>
             </article>
 
@@ -331,6 +331,116 @@
         </article>
     </section>
 
+    <!-- MODAL MODIFICAR CASSETTE -->
+    <section class="modal" id="modal-edit">
+        <div class="modal__overlay" id="modal-edit-overlay"></div>
+        <article class="modal__card">
+            <form action="" id="form-modificar-cassette" novalidate>
+                <div class="modal__header">
+                    <h2 class="modal__title">Modificar Cassette</h2>
+                    <button type="button" class="modal__close" id="modal-edit-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <!-- DESCRIPCIÓN -->
+                <div class="modal__group">
+                    <label class="modal__label" for="edit-desc">Descripción Corta</label>
+                    <input class="modal__input" type="text" id="edit-desc" name="descripcion" required>
+                </div>
+
+                <div class="modal__row">
+                    <!-- FECHA -->
+                    <div class="modal__group">
+                        <label class="modal__label" for="edit-fecha">Fecha</label>
+                        <input class="modal__input" type="date" id="edit-fecha" name="fecha" required>
+                    </div>
+                    <!-- ÓRGANO -->
+                    <div class="modal__group">
+                        <label class="modal__label" for="edit-organo">Órgano</label>
+                        <select class="modal__input" id="edit-organo" name="organo" required>
+                            <option disabled selected value="">Seleccionar un Órgano</option>
+                            <option value="*">Todos</option>
+                            <!-- SISTEMA NERVIOSO -->
+                            <optgroup label="Sistema Nervioso">
+                                <option value="encefalo">Encéfalo</option>
+                                <option value="medula">Médula Espinal</option>
+                                <option value="nervio">Nervio</option>
+                                <option value="ganglio-nervios">Ganglio Nervios</option>
+                            </optgroup>
+                            <!-- TEGUMENTO -->
+                            <optgroup label="Tegumento">
+                                <option value="piel">Piel</option>
+                                <option value="una">Uña</option>
+                                <option value="pelo">Pelo</option>
+                            </optgroup>
+                            <!-- CARDIOVASCULAR -->
+                            <optgroup label="Cardiovascular">
+                                <option value="corazon">Corazón</option>
+                                <option value="venas">Venas</option>
+                                <option value="arteria">Arteria</option>
+                            </optgroup>
+                            <!-- LINFÁTICO -->
+                            <optgroup label="Linfático">
+                                <option value="ganglio-linfatico">Ganglio Linfático</option>
+                                <option value="timo">Timo</option>
+                                <option value="bazo">Bazo</option>
+                            </optgroup>
+                            <!-- SISTEMA DIGESTIVO -->
+                            <optgroup label="Sistema Digestivo">
+                                <option value="lengua">Lengua</option>
+                                <option value="esofago">Esófago</option>
+                                <option value="estomago">Estómago</option>
+                                <option value="intestino-delgado">Intestino Delgado</option>
+                                <option value="intestino-grueso">Intestino Grueso</option>
+                                <option value="diente">Diente</option>
+                                <option value="glandula-salivar">Glándula Salivar</option>
+                                <option value="pancrea">Páncrea</option>
+                                <option value="higado">Hígado</option>
+                            </optgroup>
+                            <!-- APARATO EXCRETOR -->
+                            <optgroup label="Aparato Excretor">
+                                <option value="rinon">Riñón</option>
+                                <option value="vejiga">Vejiga</option>
+                            </optgroup>
+                            <!-- SISTEMA RESPIRATORIO -->
+                            <optgroup label="Respiratorio">
+                                <option value="traquea">Tránquea</option>
+                                <option value="bronquios">Bronquios</option>
+                                <option value="tejido-respiratorio">Tejido Respiratorio</option>
+                            </optgroup>
+                            <!-- SISTEMA ENDOCRINO -->
+                            <optgroup label="Endocrino">
+                                <option value="tiroides">Tiroides</option>
+                                <option value="parotidas">Parótidas</option>
+                                <option value="suprarrenales">Suprarrenales</option>
+                                <option value="ovario">Ovario</option>
+                                <option value="testiculo">Testículo</option>
+                            </optgroup>
+                            <!-- SISTEMA LOCOMOTOR -->
+                            <optgroup label="Locomotor">
+                                <option value="hueso">Hueso</option>
+                                <option value="musculo">Musculo Esquelético</option>
+                            </optgroup>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- CARACTERÍSTICAS -->
+                <div class="modal__group">
+                    <label class="modal__label" for="edit-caract">Características</label>
+                    <textarea class="modal__textarea" id="edit-caract" name="caracteristicas"></textarea>
+                </div>
+                <!-- OBSERVACIONES -->
+                <div class="modal__group">
+                    <label class="modal__label" for="edit-obs">Observaciones</label>
+                    <textarea class="modal__textarea" id="edit-obs" name="observaciones"></textarea>
+                </div>
+
+                <button class="modal__btn" type="submit" id="modal-edit-submit">Modificar Cassette</button>
+            </form>
+        </article>
+    </section>
     <!-- JS -->
     <script src="../js/app.js"></script>
 </body>

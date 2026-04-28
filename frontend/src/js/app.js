@@ -268,3 +268,26 @@ modalDeleteClose.addEventListener('click', () => {
 modalDeleteOverlay.addEventListener('click', () => {
     modalDelete.classList.remove('active');
 });
+
+// ----------------------
+// MODAL MODIFICAR CASSETTE
+// ----------------------
+const modalEdit = document.getElementById('modal-edit');
+const btnEditCassette = document.getElementById('btn-edit-cassette');
+const modalEditClose = document.getElementById('modal-edit-close');
+const modalEditOverlay = document.getElementById('modal-edit-overlay');
+
+// Abrir modal
+btnEditCassette.addEventListener('click', () => {
+    modalEdit.classList.add('active');
+});
+
+// Cerrar modal al hacer click
+modalEditClose.addEventListener('click', () => {
+    modalEdit.classList.remove('active');
+});
+
+// Cerrar modal al hacer click fuera de la tarjeta
+modalEditOverlay.addEventListener('click', () => {
+    modalEdit.classList.remove('active');
+});
