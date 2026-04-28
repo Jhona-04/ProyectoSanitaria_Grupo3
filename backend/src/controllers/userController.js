@@ -65,7 +65,6 @@ const login = async (req, res) => {
         }
 
         // Comprobamos contraseña
-        // El campo correcto en el modelo es 'password'
         if (!user.password) {
             return res.status(401).json({
                 error: "Error de autenticación",
@@ -80,10 +79,8 @@ const login = async (req, res) => {
             });
         }
 
-
-        // JWT_DURATION puede ser un número (horas) o un string ('1h', '2d', etc.)
         let expiresInValue = process.env.JWT_DURATION;
-        // Si es un número, lo convertimos a string con 'h'
+
         if (/^\d+$/.test(expiresInValue)) {
             expiresInValue = expiresInValue + 'h';
         }
@@ -99,7 +96,6 @@ const login = async (req, res) => {
         );
 
         //Respuesta con token
-        //Que tenemos que guardar o en sesionstorage o en cookies
         res.status(200).json({
             message: "Login correcto",
             token: token,
@@ -116,7 +112,6 @@ const login = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
-    console.log('1. Solicitud de restablecimiento para:', email); // Registro para depuración
     if (!email) {
         return res.status(400).json({
             error: "Error",
@@ -125,7 +120,6 @@ const forgotPassword = async (req, res) => {
     }
     try {
         const user = await userService.findUserByEmail(email);
-        console.log('2. Usuario encontrado:', user ? user.email : 'No encontrado'); // Registro para depuración
 
         if (!user) {
             // No revelamos si el usuario existe o no por seguridad
@@ -133,18 +127,14 @@ const forgotPassword = async (req, res) => {
         }
 
         const resetToken = crypto.randomBytes(20).toString('hex');
-        console.log('3. Token generado:', resetToken); // Registro para depuración
         const resetTokenExpires = Date.now() + 3 * 60 * 60 * 1000; // 3 horas
 
         await userService.saveResetToken(email, resetToken, resetTokenExpires);
-        console.log('4. Token guardado en la BD.'); // Registro para depuración
         await sendPasswordResetEmail(email, resetToken);
-        console.log('5. Función sendPasswordResetEmail llamada.'); // Registro para depuración
 
         res.status(200).json({ message: "Si el email está registrado, recibirás un correo de restablecimiento." });
 
     } catch (error) {
-        console.error('ERROR en forgotPassword:', error); // Registro de error
         res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
     }
 };
@@ -152,11 +142,6 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
-
-    console.log('--- INICIO RESET PASSWORD ---');
-    console.log('1. Token recibido:', token);
-    console.log('2. Contraseña recibida (longitud):', password ? password.length : 'No recibida');
-
 
     if (!password) {
         console.log('Error: No se proporcionó contraseña.');
@@ -167,7 +152,6 @@ const resetPassword = async (req, res) => {
     }
 
     try {
-        console.log('3. Buscando usuario por token...');
         const user = await userService.findUserByResetToken(token);
 
         if (!user) {
@@ -177,12 +161,6 @@ const resetPassword = async (req, res) => {
                 errores: ["El token es inválido o ha expirado"],
             });
         }
-        
-        console.log('4. Usuario encontrado:', user.email);
-        console.log('5. Verificando expiración del token...');
-        console.log('   - Hora actual:', new Date(Date.now()));
-        console.log('   - Hora de expiración:', new Date(user.resetPasswordExpires));
-
 
         if (user.resetPasswordExpires < Date.now()) {
             console.log('Error: El token ha expirado.');
@@ -192,22 +170,15 @@ const resetPassword = async (req, res) => {
             });
         }
 
-        console.log('6. Token válido. Hasheando nueva contraseña...');
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        
-        console.log('7. Actualizando contraseña en la BD...');
+
         await userService.updatePassword(user.idUsuario, hashedPassword);
-        
-        console.log('8. Limpiando token de la BD...');
+
         await userService.clearResetToken(user.idUsuario);
 
-        console.log('9. Proceso completado. Contraseña actualizada.');
-        console.log('--- FIN RESET PASSWORD ---');
         res.status(200).json({ message: "Contraseña actualizada correctamente." });
 
     } catch (error) {
-        console.error('!!! ERROR CATASTRÓFICO en resetPassword:', error);
-        console.log('--- FIN RESET PASSWORD CON ERROR ---');
         res.status(500).json({ error: "Error en el servidor", errores: [error.message] });
     }
 };

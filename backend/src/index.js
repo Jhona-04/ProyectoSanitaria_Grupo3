@@ -9,7 +9,7 @@ require("./database/db/associations");
 
 // Configuración de CORS más específica
 const corsOptions = {
-  origin: 'http://127.0.0.1:5500', // Origen de tu frontend
+  origin: 'http://127.0.0.1:5500', // Origen de frontend
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Permite cookies
   optionsSuccessStatus: 204
