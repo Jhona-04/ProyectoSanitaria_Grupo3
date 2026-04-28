@@ -1,3 +1,32 @@
+/* Mensajes de feedback */
+#cassete-message {
+    margin-bottom: 10px;
+    font-size: 15px;
+    text-align: center;
+    min-height: 22px;
+}
+.msg-success {
+    color: #155724;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+.msg-error {
+    color: #721c24;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+/* Botón cerrar sesión a la derecha */
+.header__logout {
+    margin-left: auto;
+}
 /* HEADER */
 .header {
     background-color: #534AB7;
@@ -7,7 +36,8 @@
 /* CONTENEDOR HEADER */
 .container_header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }

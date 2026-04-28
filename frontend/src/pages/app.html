@@ -17,12 +17,16 @@
     <header class="header">
         <div class="container_header">
 
+
             <!-- MENÚ HAMBURGUESA -->
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+
+            <!-- BOTÓN CERRAR SESIÓN -->
+            <button class="header__button header__logout" id="logout-button">Cerrar sesión</button>
 
             <!-- NAV -->
             <nav class="header__nav" id="menu">
@@ -210,6 +214,7 @@
         <div class="modal__overlay" id="modal-overlay"></div>
         <article class="modal__card">
             <form action="" id="crear_cassete" novalidate>
+                                <div id="cassete-message"></div>
                 <div class="modal__header">
                     <h2 class="modal__title">Nuevo Cassette</h2>
                     <button class="modal__close" id="modal-close">
@@ -220,7 +225,7 @@
                 <!-- DESCRIPCIÓN CORTA -->
                 <div class="modal__group">
                     <label class="modal__label" for="modal-desc">Descripción Corta</label>
-                    <input class="modal__input" type="text" id="modal-desc" name="descripcion" required minlength="2">
+                    <input class="modal__input" type="text" id="modal-desc" name="descripcion" required minlength="5">
                     <span class="form__error-message"></span>
                 </div>
 
@@ -443,6 +448,7 @@
     </section>
     <!-- JS -->
     <script src="../js/app.js"></script>
+    <script src="../js/logout.js"></script>
 </body>
 
 </html>

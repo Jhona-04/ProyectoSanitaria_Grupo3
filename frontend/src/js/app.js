@@ -114,6 +114,9 @@ const cargarCassetes = async () => {
 }
 
 const crearCassete = async (casseteData) => {
+    const msgDiv = document.getElementById('cassete-message');
+    msgDiv.textContent = '';
+    msgDiv.className = '';
     try {
         const res = await fetch('http://localhost:3000/sanitaria/cassetes', {
             method: 'POST',
@@ -124,12 +127,16 @@ const crearCassete = async (casseteData) => {
         });
 
         if (res.ok) {
-            console.log('Cassete creado con éxito');
             cargarCassetes();
         } else {
-            console.error('Error al crear cassete');
+            const errorData = await res.json();
+            msgDiv.textContent = errorData.error || 'Error al crear cassete';
+            msgDiv.className = 'msg-error';
+            console.error('Error al crear cassete', errorData);
         }
     } catch (error) {
+        msgDiv.textContent = 'Error de red al crear cassete';
+        msgDiv.className = 'msg-error';
         console.error('Error:', error);
     }
 }
@@ -152,7 +159,7 @@ const showError = (input, message) => {
 if(modalDesc) {
     modalDesc.addEventListener('input', () => {
         if (modalDesc.validity.tooShort) {
-            showError(modalDesc, 'La descripción debe tener al menos 2 caracteres.');
+            showError(modalDesc, 'La descripción debe tener al menos 5caracteres.');
         } else if (modalDesc.validity.valueMissing) {
             showError(modalDesc, 'Este campo es obligatorio.');
         } else {
@@ -202,7 +209,15 @@ const modalClose = document.getElementById('modal-close');
 const modalOverlay = document.getElementById('modal-overlay');
 
 // Abrir modal
-btnNuevo.addEventListener('click', () => modal.classList.add('active'));
+btnNuevo.addEventListener('click', () => {
+    modal.classList.add('active');
+    // Limpiar mensaje al abrir
+    const msgDiv = document.getElementById('cassete-message');
+    if (msgDiv) {
+        msgDiv.textContent = '';
+        msgDiv.className = '';
+    }
+});
 // Cerrar modal al hacer click
 modalClose.addEventListener('click', () => modal.classList.remove('active'));
 // Cerrar modal al hacer click fuera de la tarjeta

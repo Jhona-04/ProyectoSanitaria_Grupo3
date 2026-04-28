@@ -2,8 +2,8 @@ const Usuario  = require("../database/models/Usuario");
 
 
 // Validación para registro (todos los campos)
-const validateUserModel = async (email, password, centro, rol, nombre, apellidos) => {
-  await Usuario.build({ email, password, centro, rol, nombre, apellidos }).validate();
+const validateUserModel = async (email, password, centro, idRol, nombre, apellidos) => {
+  await Usuario.build({ email, password, centro, idRol, nombre, apellidos }).validate();
 };
 
 // Validación para login (solo email y password)
@@ -15,11 +15,11 @@ const findUserByEmail = async (email) => {
   return await Usuario.findOne({ where: { email: email } });
 };
 
-const createUser = async (email, passwordHash, centro, rol, nombre, apellidos) => {
+const createUser = async (email, passwordHash, centro, idRol, nombre, apellidos) => {
   return await Usuario.create({
     email: email,
     password: passwordHash,
-    rol: rol,
+    idRol: idRol,
     centro: centro,
     nombre: nombre,
     apellidos: apellidos

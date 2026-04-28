@@ -27,12 +27,6 @@ Cassete.init(
     observaciones: {
       type: DataTypes.STRING(100),
       allowNull: true,
-      validate: {
-        len: {
-          args: [2, 100],
-          msg: "La observación debe tener entre 2 y 100 caracteres",
-        },
-      },
     },
 
     descripcion: {
@@ -52,12 +46,6 @@ Cassete.init(
     caracteristicas: {
       type: DataTypes.STRING(200),
       allowNull: true,
-      validate: {
-        len : {
-          args:[5,200],
-          msg: "Las caracteristicas del cassete deben tener entre 5 y 200 caracteres."
-        }
-      }
     },
 
     qr_cassete: {
