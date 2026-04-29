@@ -118,7 +118,9 @@
 .cassete__icon:hover {
     color: #534AB7;
 }
-
+button i {
+    pointer-events: none;
+}
 /************************* TABLA **********************/
 
 .cassettes__table {

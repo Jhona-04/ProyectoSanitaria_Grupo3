@@ -7,6 +7,7 @@ const detailOrgano = document.getElementById('detail-organo');
 const detailFecha = document.getElementById('detail-fecha');
 const detailCaracteristicas = document.getElementById('detail-caracteristicas');
 const detailObservaciones = document.getElementById('detail-observaciones');
+const tbodycassetes = document.getElementById('tbody');
 
 
 hamburger.addEventListener('click', () => {
@@ -72,7 +73,7 @@ const renderTabla = (data) => {
 
     data.forEach(item => {
         const tr = document.createElement('tr');
-
+      
         const tdFecha = document.createElement('td');
         tdFecha.textContent = formatearFecha(item.fecha);
 
@@ -84,8 +85,8 @@ const renderTabla = (data) => {
 
         const tdBtn = document.createElement('td');
         const btn = document.createElement('button');
-        btn.dataset.id = item.id;
-
+        btn.dataset.id = item.idCassete;
+    
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-file-lines';
 
@@ -334,3 +335,11 @@ modalEditOverlay.addEventListener('click', () => {
     modalEdit.classList.remove('active');
 });
 
+tbodycassetes.addEventListener('click', (event) => {
+    console.log('Click en tbody:', event.target);
+    if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        const id = event.target.dataset.id;
+        console.log('ID del cassette:', id);
+        cargarCassetesEnPanel(id);
+    }
+});
