@@ -360,22 +360,40 @@ modalDeleteOverlay.addEventListener('click', () => {
 });
 
 // ----------------------
-// MODAL MODIFICAR CASSETTE
+// MODAL NUEVA MUESTRA
 // ----------------------
-const modalEdit = document.getElementById('modal-edit');
-const btnEditCassette = document.getElementById('btn-edit-cassette');
-const modalEditClose = document.getElementById('modal-edit-close');
-const modalEditOverlay = document.getElementById('modal-edit-overlay');
 
-// Abrir modal
-btnEditCassette.addEventListener('click', () => {
-    modalEdit.classList.add('active');
-});
+const modalMuestra = document.getElementById('modal-muestra');
+const btnNuevaMuestra = document.getElementById('muestra__modal'); 
+const modalMuestraClose = document.getElementById('modal-muestra-close');
+const modalMuestraOverlay = document.getElementById('modal-muestra-overlay');
 
-// Cerrar modal al hacer click
-modalEditClose.addEventListener('click', () => {
-    modalEdit.classList.remove('active');
-});
+// LÓGICA AL HACER CLIC EN "NUEVA MUESTRA"
+if (btnNuevaMuestra && modalMuestra) {
+    btnNuevaMuestra.addEventListener('click', () => {
+        const alertaBanner = document.getElementById('alert-cassette');
+        
+        const spanDescripcion = document.querySelector('.details .details__value');
+
+        // Comprobamos si la descripción está vacía
+        if (!spanDescripcion || spanDescripcion.textContent.trim() === '') {
+            // Mostramos la alerta roja y NO abrimos el modal
+            if (alertaBanner) alertaBanner.classList.add('active');
+        } else {
+            // Ocultamos la alerta y ABRIMOS el modal
+            if (alertaBanner) alertaBanner.classList.remove('active');
+            modalMuestra.classList.add('active');
+        }
+    });
+}
+
+// Eventos de cerrar
+if (modalMuestraClose && modalMuestra) {
+    modalMuestraClose.addEventListener('click', () => modalMuestra.classList.remove('active'));
+}
+if (modalMuestraOverlay && modalMuestra) {
+    modalMuestraOverlay.addEventListener('click', () => modalMuestra.classList.remove('active'));
+}
 
 // Cerrar modal al hacer click fuera de la tarjeta
 modalEditOverlay.addEventListener('click', () => {
@@ -393,5 +411,7 @@ tbodycassetes.addEventListener('click', (event) => {
 deleteCassette.addEventListener('click', () => {
     if (idCassete) {
         eliminarCassete(idCassete);
+        modalDelete.classList.remove('active');
     }
 });
+

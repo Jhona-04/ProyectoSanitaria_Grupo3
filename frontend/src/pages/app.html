@@ -110,6 +110,10 @@
         </div>
     </header>
 
+    <!-- BANNER DE ALERTA -->
+    <section class="alert-banner" id="alert-cassette">
+        Seleccione un Cassette
+    </section>
     <!-- MAIN -->
     <main class="main">
         <!-- CASSTTES -->
@@ -446,6 +450,66 @@
             </form>
         </article>
     </section>
+
+    <!-- MODAL NUEVA MUESTRA -->
+    <section class="modal" id="modal-muestra">
+        <div class="modal__overlay" id="modal-muestra-overlay"></div>
+        <article class="modal__card">
+            <form action="" id="crear_muestra" novalidate>
+                <!-- CABECERA -->
+                <div class="modal__header">
+                    <h2 class="modal__title">Nueva Muestra</h2>
+                    <button type="button" class="modal__close" id="modal-muestra-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="modal__group">
+                    <label class="modal__label" for="muestra-desc">Descripcion</label>
+                    <input class="modal__input" type="text" id="muestra-desc" name="descripcion" required>
+                    <span class="form__error-message"></span>
+                </div>
+
+                <!-- FECHA -->
+                <div class="modal__group">
+                    <label class="modal__label" for="muestra-fecha">Fecha</label>
+                    <input class="modal__input" type="date" id="muestra-fecha" name="fecha" required>
+                    <span class="form__error-message"></span>
+                </div>
+
+                <!-- TINCIÓN -->
+                <div class="modal__group">
+                    <label class="modal__label" for="muestra-tincion">Tinción</label>
+                    <select class="modal__input" id="muestra-tincion" name="tincion" required>
+                        <option disabled selected value="">Seleccionar Tinción</option>
+                        <option value="he">Hematoxilina-Eosina (H&E)</option>
+                        <option value="pas">PAS</option>
+                        <option value="giemsa">Giemsa</option>
+                        <option value="masson">Tricrómico de Masson</option>
+                        <option value="otras">Otras...</option>
+                    </select>
+                    <span class="form__error-message"></span>
+                </div>
+
+                <!-- OBSERVACIONES -->
+                <div class="modal__group">
+                    <label class="modal__label" for="muestra-obs">Observaciones</label>
+                    <textarea class="modal__textarea" id="muestra-obs" name="observaciones"></textarea>
+                </div>
+
+                <!-- IMAGEN -->
+                <div class="modal__group">
+                    <label class="modal__label" for="muestra-img">Imagen</label>
+                    <input class="modal__input--file" type="file" id="muestra-img" name="imagen">
+                </div>
+
+                <!-- BOTÓN -->
+                <button class="modal__btn" type="submit" id="modal-muestra-submit">Crear Muestra</button>
+            </form>
+        </article>
+    </section>
+
     <!-- JS -->
     <script src="../js/app.js"></script>
     <script src="../js/logout.js"></script>

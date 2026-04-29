@@ -97,6 +97,24 @@
     gap: 0.5rem;
 }
 
+/* ALERTA CASSETTE */
+.alert-banner {
+    display: none; 
+    background-color: #f4d8d8; 
+    color: #a33a3a; 
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    border-bottom: 1px solid #e8c4c4;
+}
+
+.alert-banner.active {
+    display: block;
+}
+
+
 /* MAIN  */
 .main {
     display: grid;
@@ -464,6 +482,15 @@ button i {
     color: #3a5a78;
     margin-bottom: 1.25rem;
 }
+/* MODAL - NUEVA MUESRTA */
+.modal__input--file {
+    padding: 6px 12px; 
+    color: #7BAFD4;
+    display: flex;
+    align-items: center; 
+    outline: none;
+}
+
 
 /*** BREAKPOINTS ***/
 
