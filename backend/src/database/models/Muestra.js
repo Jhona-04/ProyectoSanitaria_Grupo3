@@ -65,7 +65,7 @@ Muestra.init(
 
         qr_muestra: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: {
                 msg: "El QR ya está registrado.",
             },

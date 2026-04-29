@@ -9,7 +9,8 @@ const detailCaracteristicas = document.getElementById('detail-caracteristicas');
 const detailObservaciones = document.getElementById('detail-observaciones');
 const tbodycassetes = document.getElementById('tbody');
 const deleteCassette = document.getElementById('modal-delete-submit');
-var idCassete = null;
+const formModificarCassette = document.getElementById('form-modificar-cassette');
+let idCassete = null;
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
@@ -317,11 +318,15 @@ crear_cassete.addEventListener('submit', (e) => {
 
     console.log('Formulario enviado');
 
-    // Usamos 'e.target' que es el formulario actual
     const formData = new FormData(e.target);
-    const casseteData = Object.fromEntries(formData.entries());
+    const baseData = Object.fromEntries(formData.entries());
 
+    const casseteData = {
+        ...baseData,
+        usuarioId: sessionStorage.getItem('idUsuario')
+    };
 
+    console.log('Datos del formulario:', casseteData);
     crearCassete(casseteData);
 
     e.target.reset();

@@ -97,12 +97,14 @@ const login = async (req, res) => {
                 expiresIn: expiresInValue
             }
         );
-        console.log(`Token generado para ${email}: ${token}`);
+        console.log(user);
         //Respuesta con token
         res.status(200).json({
             message: "Login correcto",
             token: token,
-            data: { email: user.email },
+            data: { email: user.email ,
+                idUsuario: user.idUsuario
+            },
         });
     } catch (error) {
         if (error.name === "SequelizeValidationError") {

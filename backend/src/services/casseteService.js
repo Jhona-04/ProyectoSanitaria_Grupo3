@@ -21,6 +21,7 @@ const updateCassete = async (id, data) => {
 };
 
 const deleteCassete = async (id) => {
+  console.log(`Intentando eliminar cassete con id ${id}, resultado: ${deleted}`);
   const deleted = await Cassete.destroy({
     where: { id_cassete: id },
   });

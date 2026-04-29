@@ -23,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     // Guardar el JWT como cookie (expira en 2h por defecto, puedes ajustar)
                     if (data.token) {
+                        console.log(`Guardando token en cookie: ${data}`);
                         document.cookie = `jwt=${data.token}; path=/; max-age=7200`;
+                        sessionStorage.setItem('idUsuario', data.data.idUsuario);
                     }
                     window.location.href = './pages/app.html';
                 } else {
