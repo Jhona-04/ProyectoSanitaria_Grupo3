@@ -388,5 +388,6 @@ tbodycassetes.addEventListener('click', (event) => {
 deleteCassette.addEventListener('click', () => {
     if (idCassete) {
         eliminarCassete(idCassete);
+        modalDelete.classList.remove('active');
     }
 });
