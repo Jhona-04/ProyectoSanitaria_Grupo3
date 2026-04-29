@@ -1,4 +1,5 @@
 const userService = require('../services/userServices');
+const { getDefaultUserRoleId } = require('../services/roleServices');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
@@ -15,10 +16,12 @@ const register = async (req, res) => {
         });
     }
     try {
-        await userService.validateUserModel(email, password, centro, 0,nombre, apellidos);
+        // Obtener idRol del rol 'usuario' por defecto
+        const idRolDefault = await getDefaultUserRoleId('usuario');
+        await userService.validateUserModel(email, password, centro, idRolDefault, nombre, apellidos);
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const newUser = await userService.createUser(email, hashedPassword, centro, 0, nombre, apellidos);
+        const newUser = await userService.createUser(email, hashedPassword, centro, idRolDefault, nombre, apellidos);
         if (!newUser) {
             return res.status(500).json({
                 error: "Error en el servidor",

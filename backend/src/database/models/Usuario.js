@@ -73,12 +73,16 @@ Usuario.init(
             },
         },
 
-        rol: {
+        idRol: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'roles',
+                key: 'idRol'
+            },
             validate: {
                 notEmpty: {
-                    msg: "El campo rol no puede estar vacio"
+                    msg: "El campo idRol no puede estar vacío."
                 }
             }
         },
@@ -113,5 +117,10 @@ Usuario.init(
         timestamps: false,
     }
 );
+
+
+// Asociación con Rol
+const Rol = require("./Rol");
+Usuario.belongsTo(Rol, { foreignKey: "idRol", as: "rol" });
 
 module.exports = Usuario;
