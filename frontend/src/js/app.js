@@ -216,6 +216,7 @@ const eliminarCassete = async (id) => {
     }
 }
 
+
 // ----------------------
 // VALIDACIÓN FORMULARIO NUEVO CASSETTE
 // ----------------------
@@ -343,7 +344,8 @@ const modalDelete = document.getElementById('modal-delete');
 const btnDeleteCassette = document.getElementById('btn-delete-cassette');
 const modalDeleteClose = document.getElementById('modal-delete-close');
 const modalDeleteOverlay = document.getElementById('modal-delete-overlay');
-
+const modalEditOverlay = document.getElementById('modal-edit-overlay');
+const modalEdit = document.getElementById('modal-edit');    
 // Abrir modal
 btnDeleteCassette.addEventListener('click', () => {
     modalDelete.classList.add('active');
@@ -363,11 +365,33 @@ modalDeleteOverlay.addEventListener('click', () => {
 // MODAL NUEVA MUESTRA
 // ----------------------
 
+const modalEditClose = document.getElementById('modal-edit-close');
 const modalMuestra = document.getElementById('modal-muestra');
 const btnNuevaMuestra = document.getElementById('muestra__modal'); 
 const modalMuestraClose = document.getElementById('modal-muestra-close');
 const modalMuestraOverlay = document.getElementById('modal-muestra-overlay');
+const btnEditCassette = document.getElementById('btn-edit-cassette');
+const editDesc = document.getElementById('edit-desc');
+    const editFecha = document.getElementById('edit-fecha');
+    const editOrgano = document.getElementById('edit-organo');
+    const editCar = document.getElementById('edit-caract');
+    const editObs = document.getElementById('edit-obs');  
 
+
+modalEditClose.addEventListener('click', () => {
+    modalEdit.classList.remove('active');
+});
+
+btnEditCassette.addEventListener('click', () => {
+    if(detailDesc.textContent != ''){
+    modalEdit.classList.add('active');
+    editDesc.value = detailDesc.textContent;
+    editFecha.value = new Date(detailFecha.textContent.split('-').reverse().join('-')).toISOString().split('T')[0];
+    editOrgano.value = detailOrgano.textContent;
+    editCar.value = detailCaracteristicas.textContent;
+    editObs.value = detailObservaciones.textContent;
+}
+});
 // LÓGICA AL HACER CLIC EN "NUEVA MUESTRA"
 if (btnNuevaMuestra && modalMuestra) {
     btnNuevaMuestra.addEventListener('click', () => {
@@ -394,7 +418,6 @@ if (modalMuestraClose && modalMuestra) {
 if (modalMuestraOverlay && modalMuestra) {
     modalMuestraOverlay.addEventListener('click', () => modalMuestra.classList.remove('active'));
 }
-
 // Cerrar modal al hacer click fuera de la tarjeta
 modalEditOverlay.addEventListener('click', () => {
     modalEdit.classList.remove('active');
