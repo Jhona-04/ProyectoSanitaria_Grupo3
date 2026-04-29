@@ -1,0 +1,143 @@
+/* PANEL PRINCIPAL */
+.admin-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Cabecera */
+.admin-panel__header {
+    background-color: rgb(83, 74, 183); 
+    padding: 12px 16px;
+}
+
+.admin-panel__header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.admin-panel__title {
+    margin: 0;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+}
+
+.admin-panel__content {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* TARJETA DE LA TABLA  */
+.table-card {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(184, 208, 232); 
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.table-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 16px;
+    border-bottom: 1px solid rgb(184, 208, 232);
+}
+
+.table-card__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(90, 138, 176); 
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+/* TABLA DE USUARIOS */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.user-table__header-cell {
+    background-color: rgb(240, 245, 250); 
+    color: rgb(90, 138, 176); 
+    font-weight: 600;
+    font-variant: small-caps;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgb(184, 208, 232);
+}
+/* BODY */
+/* .user-table__row {
+    border-bottom: 1px solid rgb(232, 240, 248);
+}
+
+.user-table__row:nth-child(even) {
+    background-color: rgb(247, 250, 253); 
+}
+
+.user-table__row:hover {
+    background-color: rgb(221, 234, 245); 
+}
+
+.user-table__cell {
+    padding: 7px 12px;
+    color: rgb(58, 90, 120); 
+    font-variant: small-caps;
+    vertical-align: middle;
+}
+
+.user-table__header-cell--actions, .user-table__cell--actions {
+    text-align: right;
+    width: 160px;
+} */
+
+
+/*  BOTONES */
+.button {
+    height: 32px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: "inter", sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    font-variant: small-caps;
+    font-weight: 600;
+}
+
+/* Botón Editar */
+.button--edit {
+    background-color: rgb(123, 175, 212); 
+    color: rgb(255, 255, 255);
+    margin-right: 4px;
+}
+
+.button--edit:hover {
+    background-color: rgb(90, 138, 176);
+}
+
+/* Botón Eliminar */
+.button--delete {
+    background-color: rgb(248, 215, 218);
+    color: rgb(114, 28, 36); 
+    border: 1px solid rgb(245, 198, 203); 
+}
+
+.button--delete:hover {
+    background-color: rgb(226, 75, 74); 
+    color: rgb(255, 255, 255);
+    border-color: rgb(226, 75, 74);
+}
