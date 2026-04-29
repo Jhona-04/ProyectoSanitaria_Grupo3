@@ -8,7 +8,8 @@ const detailFecha = document.getElementById('detail-fecha');
 const detailCaracteristicas = document.getElementById('detail-caracteristicas');
 const detailObservaciones = document.getElementById('detail-observaciones');
 const tbodycassetes = document.getElementById('tbody');
-
+const deleteCassette = document.getElementById('modal-delete-submit');
+var idCassete = null;
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
@@ -109,7 +110,7 @@ const renderTabla = (data) => {
 // ----------------------
 const cargarCassetes = async () => {
     const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
-    console.log(token);
+
     try {
         const res = await fetch('http://localhost:3000/sanitaria/cassetes',
             {
@@ -120,7 +121,6 @@ const cargarCassetes = async () => {
             }
         });
         let data = await res.json();
-        console.log('Datos obtenidos:', data);
         data = aplicarFiltros(data);
 
         renderTabla(data);
@@ -181,6 +181,40 @@ const crearCassete = async (casseteData) => {
         console.error('Error:', error);
     }
 }
+
+const vaciarDetallesCassete = () => {
+    detailDesc.textContent = '';
+    detailOrgano.textContent = '';
+    detailFecha.textContent = '';
+    detailCaracteristicas.textContent = '';
+    detailObservaciones.textContent = '';
+    idCassete = null;
+}
+
+
+const eliminarCassete = async (id) => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+
+    try {
+        const res = await fetch(`http://localhost:3000/sanitaria/cassetes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (res.ok) {
+            cargarCassetes();
+            vaciarDetallesCassete();
+        } else {
+            console.error('Error al eliminar cassete');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 // ----------------------
 // VALIDACIÓN FORMULARIO NUEVO CASSETTE
 // ----------------------
@@ -269,7 +303,6 @@ crear_cassete.addEventListener('submit', (e) => {
 
     // Validar antes de enviar
     if (!modalForm.checkValidity()) {
-        // Forzar la visualización de errores si el usuario intenta enviar un form inválido
         if (modalDesc.validity.valueMissing || modalDesc.validity.tooShort) {
             showError(modalDesc, 'La descripción debe tener al menos 2 caracteres.');
         }
@@ -279,7 +312,7 @@ crear_cassete.addEventListener('submit', (e) => {
         if (modalOrgano.validity.valueMissing) {
             showError(modalOrgano, 'Debes seleccionar un órgano.');
         }
-        return; // Detener si el formulario no es válido
+        return; 
     }
 
     console.log('Formulario enviado');
@@ -288,15 +321,11 @@ crear_cassete.addEventListener('submit', (e) => {
     const formData = new FormData(e.target);
     const casseteData = Object.fromEntries(formData.entries());
 
-    // Ahora sí verás los datos porque añadimos los 'name' en el HTML
-    console.log('Datos a enviar:', casseteData);
 
     crearCassete(casseteData);
 
-    // Limpiar usando la variable correcta
     e.target.reset();
 
-    // Cerrar modal (asegúrate de que la variable 'modal' exista arriba)
     if (document.getElementById('modal')) {
         document.getElementById('modal').classList.remove('active');
     }
@@ -347,12 +376,17 @@ modalEditClose.addEventListener('click', () => {
 modalEditOverlay.addEventListener('click', () => {
     modalEdit.classList.remove('active');
 });
-
+//Mostrar detalles al hacer click en el botón de la  tabla   
 tbodycassetes.addEventListener('click', (event) => {
-    console.log('Click en tbody:', event.target);
     if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
         const id = event.target.dataset.id;
-        console.log('ID del cassette:', id);
         cargarCassetesEnPanel(id);
+        idCassete = id; 
+    }
+});
+
+deleteCassette.addEventListener('click', () => {
+    if (idCassete) {
+        eliminarCassete(idCassete);
     }
 });
