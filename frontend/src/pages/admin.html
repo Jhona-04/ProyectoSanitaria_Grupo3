@@ -6,14 +6,20 @@
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="../assets/images/mascarilla.ico" type="image/x-icon">
 </head>
 <body class="admin-panel">
+    <!-- HEADER -->
     <header class="admin-panel__header">
-        <div class="admin-panel__header-container">
+        <section class="admin-panel__header-container">
             <h1 class="admin-panel__title">Gestión de Usuarios</h1>
-        </div>
+            <a href="../index.html" class="admin-panel__link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Volver
+            </a>
+        </section>
     </header>
-    
+    <!-- MAIN -->
     <main class="admin-panel__content">
         <section class="table-card">
             <header class="table-card__header">
@@ -33,7 +39,7 @@
                 </thead>
                 <tbody class="user-table__body" id="user-table">
                     <!-- Único ejemplo de usuario -->
-                    <!-- <tr class="user-table__row">
+                    <tr class="user-table__row">
                         <td class="user-table__cell">Laura</td>
                         <td class="user-table__cell">Martínez Gómez</td>
                         <td class="user-table__cell">l.martinez@ejemplo.com</td>
@@ -43,11 +49,72 @@
                             <button class="button button--edit">Editar</button>
                             <button class="button button--delete">Eliminar</button>
                         </td>
-                    </tr> -->
+                    </tr> 
                 </tbody>
             </table>
         </section>
     </main>
+
+    <!-- MODAL EDITAR USUARIO -->
+    <section class="modal" id="modal-edit">
+        <div class="modal__overlay" id="modal-edit-overlay"></div>
+        <article class="modal__card">
+            <header class="modal__header">
+                <h2 class="modal__title">Editar Usuario</h2>
+                <button type="button" class="modal__close" id="modal-edit-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            
+            <form class="modal__form">
+                <div class="modal__group">
+                    <label class="modal__label">Nombre</label>
+                    <input type="text" class="modal__input" value="Laura">
+                </div>
+                
+                <div class="modal__group">
+                    <label class="modal__label">Apellidos</label>
+                    <input type="text" class="modal__input" value="Martínez Gómez">
+                </div>
+                
+                <div class="modal__group">
+                    <label class="modal__label">Email</label>
+                    <input type="email" class="modal__input" value="l.martinez@ejemplo.com">
+                </div>
+                
+                <div class="modal__row">
+                    <div class="modal__group">
+                        <label class="modal__label">Rol</label>
+                        <input type="text" class="modal__input" value="Especialista">
+                    </div>
+                    <div class="modal__group">
+                        <label class="modal__label">Centro</label>
+                        <input type="text" class="modal__input" value="Hospital Clínico">
+                    </div>
+                </div>
+                
+                <button type="submit" class="modal__btn">Guardar Cambios</button>
+            </form>
+        </article>
+    </section>
+
+    <!-- MODAL ELIMINAR USUARIO -->
+    <section class="modal" id="modal-delete">
+        <div class="modal__overlay" id="modal-delete-overlay"></div>
+        <article class="modal__card">
+            <header class="modal__header">
+                <h2 class="modal__title">Eliminar Usuario</h2>
+                <button type="button" class="modal__close" id="modal-delete-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            
+            <div class="modal__message">
+                <p class="modal__text">¿Estás seguro de que deseas eliminar a este usuario? Esta acción no se puede deshacer.</p>
+                <button type="button" class="modal__btn modal__btn--danger">Sí, eliminar usuario</button>
+            </div>
+        </article>
+    </section>
 
     <script src="../js/admin.js"></script>
 </body>

@@ -16,6 +16,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .admin-panel__title {
@@ -24,6 +25,21 @@
     color: rgb(255, 255, 255);
     font-variant: small-caps;
     letter-spacing: 0.04em;
+}
+.admin-panel__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    font-variant: small-caps;
+    font-family: "inter", sans-serif;
+    transition: color 0.15s;
+}
+.admin-panel__link:hover {
+    color: rgb(184, 208, 232); 
 }
 
 .admin-panel__content {
@@ -79,7 +95,7 @@
     border-bottom: 1px solid rgb(184, 208, 232);
 }
 /* BODY */
-/* .user-table__row {
+.user-table__row {
     border-bottom: 1px solid rgb(232, 240, 248);
 }
 
@@ -101,8 +117,7 @@
 .user-table__header-cell--actions, .user-table__cell--actions {
     text-align: right;
     width: 160px;
-} */
-
+} 
 
 /*  BOTONES */
 .button {
@@ -140,4 +155,177 @@
     background-color: rgb(226, 75, 74); 
     color: rgb(255, 255, 255);
     border-color: rgb(226, 75, 74);
+}
+
+/* MODALES */
+
+/* Contenedor principal del modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Clase para mostrar el modal */
+.modal.active {
+    display: flex;
+}
+
+/* Fondo oscuro translúcido */
+.modal__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+/* Tarjeta blanca del modal */
+.modal__card {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 24px;
+    width: 95%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 101;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Cabecera del modal */
+.modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(184, 208, 232);
+}
+
+.modal__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(90, 138, 176);
+    margin: 0;
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+}
+
+/* Botón de cerrar */
+.modal__close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: rgb(90, 138, 176);
+    cursor: pointer;
+    transition: color 0.15s;
+    padding: 0;
+    line-height: 1;
+}
+
+.modal__close:hover {
+    color: rgb(226, 75, 74);
+}
+
+/* FORMULARIO Y CAMPOS  */
+.modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal__row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* BREAKPOINTS */
+@media (min-width: 768px) {
+    .modal__row {
+        flex-direction: row;
+    }
+    .modal__row .modal__group {
+        flex: 1;
+    }
+}
+
+.modal__label {
+    font-size: 15px;
+    color: rgb(90, 138, 176);
+    font-weight: 600;
+    font-variant: small-caps;
+}
+
+.modal__input {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid rgb(184, 208, 232);
+    border-radius: 8px;
+    font-size: 16px;
+    color: rgb(58, 90, 120);
+    outline: none;
+    width: 100%;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-family: "inter", sans-serif;
+}
+
+.modal__input:focus {
+    border-color: rgb(83, 74, 183);
+    box-shadow: 0 0 0 3px rgba(83, 74, 183, 0.15);
+}
+
+/* MENSAJE ELIMINAR  */
+.modal__message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.modal__text {
+    font-size: 16px;
+    color: rgb(58, 90, 120);
+    margin-top: 0;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+/* BOTONES DEL MODAL */
+.modal__btn {
+    width: 100%;
+    height: 44px;
+    background-color: rgb(123, 175, 212);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.15s;
+    font-variant: small-caps;
+    font-family: "inter", sans-serif;
+}
+
+.modal__btn:hover {
+    background-color: rgb(90, 138, 176);
+}
+
+.modal__btn--danger {
+    background-color: rgb(226, 75, 74);
+    margin-top: 0;
+}
+
+.modal__btn--danger:hover {
+    background-color: rgb(180, 50, 50); 
 }
