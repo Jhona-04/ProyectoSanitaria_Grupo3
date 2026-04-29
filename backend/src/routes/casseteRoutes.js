@@ -13,7 +13,7 @@ const authjwt = require("../middlewares/jwt")
  *       200:
  *         description: OK
  */
-router.get("/", casseteController.getAllCassetes);
+router.get("/", authjwt,casseteController.getAllCassetes);
 
 /**
  * @swagger
@@ -43,7 +43,7 @@ router.get("/:id", authjwt,casseteController.getCasseteById);
  *       201:
  *         description: Creado
  */
-router.post("/",  casseteController.createCassete);
+router.post("/",authjwt,  casseteController.createCassete);
 
 /**
  * @swagger

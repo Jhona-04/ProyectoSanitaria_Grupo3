@@ -22,7 +22,7 @@ const updateCassete = async (id, data) => {
 
 const deleteCassete = async (id) => {
   const deleted = await Cassete.destroy({
-    where: { id_cassete: id },
+    where: { idCassete: id },
   });
   return deleted > 0;
 };

@@ -2,6 +2,14 @@
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('menu');
 const crear_cassete = document.getElementById('crear_cassete');
+const detailDesc = document.getElementById('detail-desc');
+const detailOrgano = document.getElementById('detail-organo');
+const detailFecha = document.getElementById('detail-fecha');
+const detailCaracteristicas = document.getElementById('detail-caracteristicas');
+const detailObservaciones = document.getElementById('detail-observaciones');
+const tbodycassetes = document.getElementById('tbody');
+const deleteCassette = document.getElementById('modal-delete-submit');
+var idCassete = null;
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
@@ -66,7 +74,7 @@ const renderTabla = (data) => {
 
     data.forEach(item => {
         const tr = document.createElement('tr');
-
+      
         const tdFecha = document.createElement('td');
         tdFecha.textContent = formatearFecha(item.fecha);
 
@@ -78,7 +86,8 @@ const renderTabla = (data) => {
 
         const tdBtn = document.createElement('td');
         const btn = document.createElement('button');
-
+        btn.dataset.id = item.idCassete;
+    
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-file-lines';
 
@@ -100,10 +109,18 @@ const renderTabla = (data) => {
 // CARGAR DATOS
 // ----------------------
 const cargarCassetes = async () => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+
     try {
-        const res = await fetch('http://localhost:3000/sanitaria/cassetes');
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes',
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
         let data = await res.json();
-        console.log('Datos obtenidos:', data);
         data = aplicarFiltros(data);
 
         renderTabla(data);
@@ -113,15 +130,39 @@ const cargarCassetes = async () => {
     }
 }
 
+const cargarCassetesEnPanel = async (id) => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+    try {
+        const res = await fetch('http://localhost:3000/sanitaria/cassetes/' + id,
+            {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let data = await res.json();
+        detailDesc.textContent = data.descripcion;
+        detailOrgano.textContent = data.organo;
+        detailFecha.textContent = formatearFecha(data.fecha);
+        detailCaracteristicas.textContent = data.caracteristicas;
+        detailObservaciones.textContent = data.observaciones;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 const crearCassete = async (casseteData) => {
-    const msgDiv = document.getElementById('cassete-message');
-    msgDiv.textContent = '';
-    msgDiv.className = '';
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+
     try {
         const res = await fetch('http://localhost:3000/sanitaria/cassetes', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(casseteData)
         });
@@ -140,6 +181,40 @@ const crearCassete = async (casseteData) => {
         console.error('Error:', error);
     }
 }
+
+const vaciarDetallesCassete = () => {
+    detailDesc.textContent = '';
+    detailOrgano.textContent = '';
+    detailFecha.textContent = '';
+    detailCaracteristicas.textContent = '';
+    detailObservaciones.textContent = '';
+    idCassete = null;
+}
+
+
+const eliminarCassete = async (id) => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+
+    try {
+        const res = await fetch(`http://localhost:3000/sanitaria/cassetes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (res.ok) {
+            cargarCassetes();
+            vaciarDetallesCassete();
+        } else {
+            console.error('Error al eliminar cassete');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 // ----------------------
 // VALIDACIÓN FORMULARIO NUEVO CASSETTE
 // ----------------------
@@ -228,7 +303,6 @@ crear_cassete.addEventListener('submit', (e) => {
 
     // Validar antes de enviar
     if (!modalForm.checkValidity()) {
-        // Forzar la visualización de errores si el usuario intenta enviar un form inválido
         if (modalDesc.validity.valueMissing || modalDesc.validity.tooShort) {
             showError(modalDesc, 'La descripción debe tener al menos 2 caracteres.');
         }
@@ -238,7 +312,7 @@ crear_cassete.addEventListener('submit', (e) => {
         if (modalOrgano.validity.valueMissing) {
             showError(modalOrgano, 'Debes seleccionar un órgano.');
         }
-        return; // Detener si el formulario no es válido
+        return; 
     }
 
     console.log('Formulario enviado');
@@ -247,15 +321,11 @@ crear_cassete.addEventListener('submit', (e) => {
     const formData = new FormData(e.target);
     const casseteData = Object.fromEntries(formData.entries());
 
-    // Ahora sí verás los datos porque añadimos los 'name' en el HTML
-    console.log('Datos a enviar:', casseteData);
 
     crearCassete(casseteData);
 
-    // Limpiar usando la variable correcta
     e.target.reset();
 
-    // Cerrar modal (asegúrate de que la variable 'modal' exista arriba)
     if (document.getElementById('modal')) {
         document.getElementById('modal').classList.remove('active');
     }
@@ -320,4 +390,23 @@ if (modalMuestraOverlay && modalMuestra) {
     modalMuestraOverlay.addEventListener('click', () => modalMuestra.classList.remove('active'));
 }
 
+// Cerrar modal al hacer click fuera de la tarjeta
+modalEditOverlay.addEventListener('click', () => {
+    modalEdit.classList.remove('active');
+});
+//Mostrar detalles al hacer click en el botón de la  tabla   
+tbodycassetes.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        const id = event.target.dataset.id;
+        cargarCassetesEnPanel(id);
+        idCassete = id; 
+    }
+});
+
+deleteCassette.addEventListener('click', () => {
+    if (idCassete) {
+        eliminarCassete(idCassete);
+        modalDelete.classList.remove('active');
+    }
+});
 

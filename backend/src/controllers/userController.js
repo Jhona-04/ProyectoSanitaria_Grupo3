@@ -97,7 +97,7 @@ const login = async (req, res) => {
                 expiresIn: expiresInValue
             }
         );
-
+        console.log(`Token generado para ${email}: ${token}`);
         //Respuesta con token
         res.status(200).json({
             message: "Login correcto",
